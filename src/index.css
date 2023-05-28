@@ -6,5 +6,8 @@
 
 * {
   font-family: "Poppins", sans-serif;
+}
 
+.active {
+  background-color: rgb(229 231 235);
 }
