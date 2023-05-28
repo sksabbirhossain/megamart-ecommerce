@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { Button } from "../components/common/Button/Button";
 import { Form } from "../components/common/Form/Form";
 import { FormInput } from "../components/common/FormInput/FormInput";
+import { setTitle } from "../utils/setTitle";
 
 export const Register = () => {
+  //set page title
+  setTitle("Register User");
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="mx-2 sm:mx-0 sm:w-[350px] bg-slate-100 px-2 py-4 rounded-md">
@@ -43,7 +46,7 @@ export const Register = () => {
 
           <Button name="Register" className="w-full" />
         </Form>
-        <div className="mt-4 mb-3">
+        <div className="mt-4 mb-3 text-center">
           <span>
             you have an account? please{" "}
             <Link to="/" className="text-[#28a745] font-normal">

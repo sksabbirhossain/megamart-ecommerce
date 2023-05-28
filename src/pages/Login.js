@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { Button } from "../components/common/Button/Button";
 import { Form } from "../components/common/Form/Form";
 import { FormInput } from "../components/common/FormInput/FormInput";
+import { setTitle } from "../utils/setTitle";
 
 export const Login = () => {
+  //set page title
+  setTitle("Login User");
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="mx-2 sm:mx-0 sm:w-[350px] bg-slate-100 px-2 py-4 rounded-md">
