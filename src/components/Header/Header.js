@@ -17,7 +17,9 @@ export const Header = ({ sidebar, setSidebar }) => {
           </div>
         </Link>
         <div className="items-center space-x-2 hidden sm:flex">
-          <span className="hidden sm:block font-semibold">Sk Sabbir Hossain</span>
+          <span className="hidden sm:block font-semibold">
+            Sk Sabbir Hossain
+          </span>
           <img
             src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
             alt="user"

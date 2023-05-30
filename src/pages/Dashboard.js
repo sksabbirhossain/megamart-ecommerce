@@ -1,4 +1,5 @@
 import React from "react";
+import { Heading } from "../components/common/Heading/Heading";
 import { setTitle } from "../utils/setTitle";
 
 export const Dashboard = () => {
@@ -6,10 +7,7 @@ export const Dashboard = () => {
   setTitle("Dashboard");
   return (
     <section>
-      <div className="mt-1">
-        <h2 className="text-2xl">Dashboard</h2>
-        <p className="shadow-sm pt-2 w-full"></p>
-      </div>
+      <Heading title="Dashboard" />
       <div className=" mt-3 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
         <div className="bg-gray-700 text-white rounded-md text-center py-4">
           <p className="text-4xl font-semibold pb-2">3</p>
