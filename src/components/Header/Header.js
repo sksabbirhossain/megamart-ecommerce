@@ -12,13 +12,12 @@ export const Header = ({ sidebar, setSidebar }) => {
               <AiOutlineBug />
             </span>
             <span className="font-semibold text-2xl hidden sm:block">
-              User Management System
+              Mgea<span className="text-green-700">Mart</span>
             </span>
           </div>
         </Link>
         <div className="items-center space-x-2 hidden sm:flex">
-          <span className="font-medium cursor-pointer select-none">LogOut</span>
-          <span className="hidden sm:block">Sk Sabbir Hossain</span>
+          <span className="hidden sm:block font-semibold">Sk Sabbir Hossain</span>
           <img
             src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
             alt="user"
