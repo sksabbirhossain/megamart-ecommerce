@@ -8,16 +8,22 @@ import {
   FaSignInAlt,
   FaUserFriends,
 } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 export const Sidebar = () => {
   const [brandDropDown, setBrandDropDown] = useState(false);
   const [categoryDropDown, setCategoryDropDown] = useState(false);
   const [productDropDown, setProductDropDown] = useState(false);
+
+  const { sidebarMenu } = useSelector((state) => state.sidebarMenu);
+
   return (
     <>
       <aside
-        className={`fixed top-16 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0`}
+        className={`fixed top-16 left-0 z-40 w-64 h-screen transition-transform ${
+          sidebarMenu ? "" : "-translate-x-full"
+        } sm:translate-x-0`}
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
           <ul className="space-y-2 font-medium">
