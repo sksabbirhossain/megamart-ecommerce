@@ -5,6 +5,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { Register } from "./pages/Register";
+import { AllBrands } from "./pages/Brand/AllBrands";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/" element={<Main />}>
         <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/all-brands" element={<AllBrands/>} />
       </Route>
       <Route path="/*" element={<NotFound />} />
     </Routes>
