@@ -14,7 +14,7 @@ export const AllBrands = () => {
       <div className="flex justify-end shadow-sm py-2 rounded-md">
         <Link
           to="/add-brand"
-          className=" bg-green-600 px-2 mr-1 py-1 rounded-md text-gray-50 font-normal"
+          className=" bg-green-600 px-2 mr-1 py-1 uppercase rounded-md text-gray-50 font-normal"
         >
           Add Brand
         </Link>
@@ -47,7 +47,7 @@ export const AllBrands = () => {
                 <img
                   src="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?202110180743"
                   alt="brand"
-                  className="w-11 h-11 rounded-full ring-2 p-1"
+                  className="w-11 h-11 rounded-full ring-2 ring-green-700 p-1"
                 />
               </th>
               <td class="px-6 py-3">Apple</td>

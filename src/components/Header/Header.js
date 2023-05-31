@@ -33,7 +33,7 @@ export const Header = () => {
           <img
             src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
             alt="user"
-            className="w-11 h-11 object-cover rounded-full"
+            className="w-11 h-11 object-cover rounded-full ring-2 "
           />
         </div>
         <button
