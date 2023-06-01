@@ -4,19 +4,20 @@ import { Link } from "react-router-dom";
 import { Heading } from "../../components/common/Heading/Heading";
 import { setTitle } from "../../utils/setTitle";
 
-export const AllBrands = () => {
-  //set page title
-  setTitle("All Brands");
+export const AllCategories = () => {
   const status = false;
+
+  //set page title
+  setTitle("All Categories");
   return (
     <section className="space-y-4">
-      <Heading title="All Brands" />
+      <Heading title="All Categories" />
       <div className="flex justify-end shadow-sm py-2 rounded-md">
         <Link
-          to="/add-brand"
+          to="/add-category"
           className=" bg-green-600 px-2 mr-1 py-1 uppercase rounded-md text-gray-50 font-normal"
         >
-          Add Brand
+          Add Category
         </Link>
       </div>
       {/* brand table  */}
@@ -25,10 +26,10 @@ export const AllBrands = () => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-100">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Brand Picture
+                Category Picture
               </th>
               <th scope="col" className="px-6 py-3">
-                Brand name
+                Category name
               </th>
               <th scope="col" className="px-6 py-3">
                 Status
@@ -45,12 +46,12 @@ export const AllBrands = () => {
                 className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap"
               >
                 <img
-                  src="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?202110180743"
+                  src="https://www.bdprice.com.bd/wp-content/uploads/2020/11/Apple-iPhone-13-Blue-Price-in-Bangladesh.jpg"
                   alt="brand"
                   className="w-11 h-11 rounded-full ring-2 ring-green-700 p-1"
                 />
               </th>
-              <td className="px-6 py-3">Apple</td>
+              <td className="px-6 py-3">iphone</td>
               <td className="px-6 py-3 cursor-pointer">
                 {status ? (
                   <span className="text-white font-semibold px-3 py-1 rounded-md bg-green-700">
