@@ -10,6 +10,7 @@ import { NotFound } from "./pages/NotFound";
 import { Register } from "./pages/Register";
 import { AddCategory } from "./pages/Category/AddCategory";
 import { setTitle } from "./utils/setTitle";
+import { AllProducts } from "./pages/Product/AllProducts";
 
 function App() {
   //set page title
@@ -24,6 +25,7 @@ function App() {
         <Route path="/add-brand" element={<AddBrand />} />
         <Route path="/all-categories" element={<AllCategories />} />
         <Route path="/add-category" element={<AddCategory />} />
+        <Route path="/all-products" element={<AllProducts />} />
       </Route>
       <Route path="/*" element={<NotFound />} />
     </Routes>
