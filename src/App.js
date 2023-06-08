@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { useAdminAuthChecked } from "./hooks/useAdminAuthChecked";
 import { Main } from "./layouts/Main";
 import { AddBrand } from "./pages/Brand/AddBrand";
 import { AllBrands } from "./pages/Brand/AllBrands";
@@ -11,11 +12,12 @@ import { NotFound } from "./pages/NotFound";
 import { AddProduct } from "./pages/Product/AddProduct";
 import { AllProducts } from "./pages/Product/AllProducts";
 import { Register } from "./pages/Register";
-import { setTitle } from "./utils/setTitle";
 
 function App() {
-  //set page title
-  setTitle("Add Category");
+  const adminAuthChecked = useAdminAuthChecked();
+  if (!adminAuthChecked) {
+    return <p>Loading...</p>;
+  }
   return (
     <Routes>
       <Route path="/" element={<Login />} />

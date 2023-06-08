@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../components/common/Button/Button";
 import { Form } from "../components/common/Form/Form";
 import { FormInput } from "../components/common/FormInput/FormInput";
+import { Error } from "../components/ui/Error";
 import { useAdminLoginMutation } from "../features/auth/authApi";
 import { setTitle } from "../utils/setTitle";
 
@@ -18,11 +19,15 @@ export const Login = () => {
     useAdminLoginMutation();
 
   useEffect(() => {
+    setError("");
     if (!isLoading && isSuccess) {
       return navigate("/admin/dashboard");
     }
     if (resError?.error) {
       setError(resError.error);
+    }
+    if (resError?.status) {
+      setError(resError?.data?.message);
     }
   }, [isLoading, isSuccess, resError, navigate]);
 
@@ -66,7 +71,7 @@ export const Login = () => {
             className="w-full"
           />
         </Form>
-        {error !== "" && <p>{error}</p>}
+        {error !== "" && <Error error={error} />}
       </div>
     </div>
   );
