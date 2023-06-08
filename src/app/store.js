@@ -9,4 +9,6 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     adminAuth: authSliceReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
 });

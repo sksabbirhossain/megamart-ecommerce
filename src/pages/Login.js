@@ -1,12 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineBug } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/common/Button/Button";
 import { Form } from "../components/common/Form/Form";
 import { FormInput } from "../components/common/FormInput/FormInput";
+import { useAdminLoginMutation } from "../features/auth/authApi";
 import { setTitle } from "../utils/setTitle";
 
 export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const [adminLogin, { isLoading, isSuccess, error: resError }] =
+    useAdminLoginMutation();
+
+  useEffect(() => {
+    if (!isLoading && isSuccess) {
+      return navigate("/admin/dashboard");
+    }
+    if (resError?.error) {
+      setError(resError.error);
+    }
+  }, [isLoading, isSuccess, resError, navigate]);
+
+  //handle login
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    adminLogin({ email, password });
+  };
   //set page title
   setTitle("Login User");
   return (
@@ -16,32 +40,33 @@ export const Login = () => {
           <span className="text-green-600 text-5xl pb-1">
             <AiOutlineBug />
           </span>
-          <h3 className="text-2xl font-semibold">Login Your Account</h3>
+          <h3 className="text-2xl font-semibold">Login Admin Account</h3>
         </div>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <FormInput
             label="Email"
             type="email"
             name="email"
             placeholder="your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <FormInput
             label="Password"
             type="password"
             name="password"
             placeholder="your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button name="Login" className="w-full" />
+          <Button
+            disabled={isLoading}
+            name={isLoading ? "Loading..." : "Login"}
+            className="w-full"
+          />
         </Form>
-        <div className="mt-4 mb-3 text-center">
-          <span>
-            you don't have an account? please{" "}
-            <Link to="/register" className="text-[#28a745] font-normal">
-              Register.
-            </Link>
-          </span>
-        </div>
+        {error !== "" && <p>{error}</p>}
       </div>
     </div>
   );

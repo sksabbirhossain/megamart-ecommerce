@@ -30,3 +30,5 @@ export const authApi = apiSlice.injectEndpoints({
     }),
   }),
 });
+
+export const { useAdminLoginMutation } = authApi;

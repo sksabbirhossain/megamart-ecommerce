@@ -25,16 +25,16 @@ export const Sidebar = () => {
           sidebarMenu ? "" : "-translate-x-full"
         } sm:translate-x-0`}
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 ">
           <ul className="space-y-2 font-medium">
             <li>
               <NavLink
                 to="/admin/dashboard"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <svg
                   aria-hidden="true"
-                  className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                  className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 "
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@ export const Sidebar = () => {
               >
                 <svg
                   aria-hidden="true"
-                  className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                  className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75  group-hover:text-gray-900"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +86,7 @@ export const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/all-brands"
-                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                    className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">All Brands</span>
                   </NavLink>
@@ -94,7 +94,7 @@ export const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/add-brand"
-                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                    className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">Add Brand</span>
                   </NavLink>
@@ -109,7 +109,7 @@ export const Sidebar = () => {
               >
                 <svg
                   aria-hidden="true"
-                  className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                  className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75  group-hover:text-gray-900 "
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +147,7 @@ export const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/all-categories"
-                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                    className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">All Categories</span>
                   </NavLink>
@@ -155,7 +155,7 @@ export const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/add-category"
-                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                    className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">Add Category</span>
                   </NavLink>
@@ -170,7 +170,7 @@ export const Sidebar = () => {
               >
                 <svg
                   aria-hidden="true"
-                  className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                  className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900  "
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -207,7 +207,7 @@ export const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/all-products"
-                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                    className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">All Proudcts</span>
                   </NavLink>
@@ -215,7 +215,7 @@ export const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/add-product"
-                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                    className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">Add Product</span>
                   </NavLink>
@@ -225,7 +225,7 @@ export const Sidebar = () => {
             <li>
               <NavLink
                 to="/orders"
-                className="flex items-center p-2 group text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
                   <FaCartPlus />
@@ -236,7 +236,7 @@ export const Sidebar = () => {
             <li>
               <NavLink
                 to="/customers"
-                className="flex items-center p-2 group text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
                   <FaUserFriends />
@@ -247,7 +247,7 @@ export const Sidebar = () => {
             <li>
               <NavLink
                 to="/statistics"
-                className="flex items-center p-2 group text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
                   <FaChartBar />
@@ -258,7 +258,7 @@ export const Sidebar = () => {
             <li>
               <NavLink
                 to="/sellers"
-                className="flex items-center p-2 group text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
                   <FaMapMarked />
@@ -269,7 +269,7 @@ export const Sidebar = () => {
             <li>
               <NavLink
                 to="/hotoffers"
-                className="flex items-center p-2 group text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
                   <FaRegPaperPlane />
@@ -280,7 +280,7 @@ export const Sidebar = () => {
             <li>
               <NavLink
                 to="/settings"
-                className="flex items-center p-2 group text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
                   <DiAptana />
@@ -291,7 +291,7 @@ export const Sidebar = () => {
             <li>
               <NavLink
                 to="/"
-                className="flex items-center p-2 group text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
                   <FaSignInAlt />
