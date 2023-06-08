@@ -11,7 +11,9 @@ import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { AddProduct } from "./pages/Product/AddProduct";
 import { AllProducts } from "./pages/Product/AllProducts";
-import { Register } from "./pages/Register";
+// import { Register } from "./pages/Register";
+import { PrivateRoute } from "./routes/admin/PrivateRoute";
+import { PublicRoute } from "./routes/admin/PublicRoute";
 
 function App() {
   const adminAuthChecked = useAdminAuthChecked();
@@ -20,10 +22,10 @@ function App() {
   }
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/" element={<PublicRoute><Login /></PublicRoute>} />
+      {/* <Route path="/register" element={<Register />} /> */}
       <Route path="/" element={<Main />}>
-        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path="/all-brands" element={<AllBrands />} />
         <Route path="/add-brand" element={<AddBrand />} />
         <Route path="/all-categories" element={<AllCategories />} />

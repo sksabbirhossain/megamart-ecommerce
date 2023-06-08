@@ -12,6 +12,6 @@ export const useAdminAuthChecked = () => {
       setAdminAuth(true);
     }
     setAdminAuth(true);
-  }, [adminAuth, dispatch]);
+  }, [dispatch]);
   return adminAuth;
 };
