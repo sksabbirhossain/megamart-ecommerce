@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { DiAptana } from "react-icons/di";
 import {
   FaCartPlus,
@@ -8,8 +9,9 @@ import {
   FaSignInAlt,
   FaUserFriends,
 } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { adminLoggedOut } from "../../features/auth/authSlice";
 
 export const Sidebar = () => {
   const [brandDropDown, setBrandDropDown] = useState(false);
@@ -17,6 +19,17 @@ export const Sidebar = () => {
   const [productDropDown, setProductDropDown] = useState(false);
 
   const { sidebarMenu } = useSelector((state) => state.sidebarMenu);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  //logout admin
+  const handleLogout = () => {
+    localStorage.removeItem("adminAuth");
+    dispatch(adminLoggedOut);
+    navigate("/");
+    toast.success("Logout SuccessFull");
+  };
 
   return (
     <>
@@ -288,7 +301,7 @@ export const Sidebar = () => {
                 <span className="ml-3">Settings</span>
               </NavLink>
             </li>
-            <li>
+            <li onClick={handleLogout}>
               <NavLink
                 to="/"
                 className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "

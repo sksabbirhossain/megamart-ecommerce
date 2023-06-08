@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { AiOutlineBug } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/common/Button/Button";
@@ -21,6 +22,7 @@ export const Login = () => {
   useEffect(() => {
     setError("");
     if (!isLoading && isSuccess) {
+      toast.success("Admin Login SuccessFull");
       return navigate("/admin/dashboard");
     }
     if (resError?.error) {

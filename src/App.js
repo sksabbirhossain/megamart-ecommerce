@@ -26,12 +26,12 @@ function App() {
       {/* <Route path="/register" element={<Register />} /> */}
       <Route path="/" element={<Main />}>
         <Route path="/admin/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path="/all-brands" element={<AllBrands />} />
-        <Route path="/add-brand" element={<AddBrand />} />
-        <Route path="/all-categories" element={<AllCategories />} />
-        <Route path="/add-category" element={<AddCategory />} />
-        <Route path="/all-products" element={<AllProducts />} />
-        <Route path="/add-product" element={<AddProduct />} />
+        <Route path="/all-brands" element={<PrivateRoute><AllBrands /></PrivateRoute>} />
+        <Route path="/add-brand" element={<PrivateRoute><AddBrand /></PrivateRoute>} />
+        <Route path="/all-categories" element={<PrivateRoute><AllCategories /></PrivateRoute>} />
+        <Route path="/add-category" element={<PrivateRoute><AddCategory /></PrivateRoute>} />
+        <Route path="/all-products" element={<PrivateRoute><AllProducts /></PrivateRoute>} />
+        <Route path="/add-product" element={<PrivateRoute><AddProduct /></PrivateRoute>} />
       </Route>
       <Route path="/*" element={<NotFound />} />
     </Routes>

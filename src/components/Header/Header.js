@@ -2,10 +2,12 @@ import React from "react";
 import { AiOutlineBug } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectAdminInfo } from "../../features/auth/authSelectors";
 import { isActive } from "../../features/sidebar/sidebarSlice";
 
 export const Header = () => {
   const dispatch = useDispatch();
+  const adminInfo = useSelector(selectAdminInfo);
   const { sidebarMenu } = useSelector((state) => state.sidebarMenu);
 
   //open sidebar in mobile
@@ -28,10 +30,14 @@ export const Header = () => {
         </Link>
         <div className="items-center space-x-2 hidden sm:flex">
           <span className="hidden sm:block font-semibold">
-            Sk Sabbir Hossain
+            {adminInfo?.name}
           </span>
           <img
-            src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            src={
+              adminInfo?.profilePic === null
+                ? "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                : `${process.env.REACT_APP_BASE_URL}/uploads/${adminInfo?.profilePic}`
+            }
             alt="user"
             className="w-11 h-11 object-cover rounded-full ring-2 "
           />
