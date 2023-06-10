@@ -26,7 +26,7 @@ export const AllBrands = () => {
     );
 
   if (!isError && !isLoading && isSuccess && allBrands?.brands?.length === 0)
-    content = <p>No Brand found!</p>;
+    content = <p  className="text-center uppercase font-medium">No Brand found!</p>;
   if (!isError && !isLoading && allBrands?.brands?.length > 0)
     content = <BrandTable brands={allBrands.brands} />;
 

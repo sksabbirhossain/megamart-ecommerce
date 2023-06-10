@@ -1,7 +1,22 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { useUpdateStatusMutation } from "../../features/brand/brandApi";
 
 export const BrandTable = ({ brands }) => {
+  const [updateStatus, { isLoading }] = useUpdateStatusMutation();
+
+  if (isLoading) <p>loading..</p>;
+  //update status
+  const updateStatusHandler = (brandId, data) => {
+    updateStatus({
+      brandid: brandId,
+      data: {
+        status: data,
+      },
+    });
+    toast.success("Update Status");
+  };
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500">
@@ -37,16 +52,17 @@ export const BrandTable = ({ brands }) => {
                   />
                 </th>
                 <td className="px-6 py-3">{name}</td>
-                <td className="px-6 py-3 cursor-pointer">
-                  {status === "active" ? (
-                    <span className="text-white font-semibold px-3 py-1 rounded-md bg-green-700">
-                      Active
-                    </span>
-                  ) : (
-                    <span className="text-white font-semibold px-3 py-1 rounded-md bg-red-600">
-                      Inactive
-                    </span>
-                  )}
+                <td
+                  className="px-6 py-3 cursor-pointer"
+                  onClick={() => updateStatusHandler(_id, !status)}
+                >
+                  <span
+                    className={`text-white font-semibold px-3 py-1 rounded-md ${
+                      status ? "bg-green-700" : "bg-red-600"
+                    }`}
+                  >
+                    {status ? "active" : "inactive"}
+                  </span>
                 </td>
                 <td className="px-6 py-3 sm:space-x-2 space-x-1">
                   <button className="text-[16px] text-white bg-green-700 p-1 rounded-md">
