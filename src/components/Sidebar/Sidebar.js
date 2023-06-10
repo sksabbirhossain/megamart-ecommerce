@@ -26,9 +26,9 @@ export const Sidebar = () => {
   //logout admin
   const handleLogout = () => {
     localStorage.removeItem("adminAuth");
-    dispatch(adminLoggedOut);
-    navigate("/");
+    dispatch(adminLoggedOut());
     toast.success("Logout SuccessFull");
+    navigate("/");
   };
 
   return (

@@ -1,13 +1,38 @@
 import React from "react";
-import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Heading } from "../../components/common/Heading/Heading";
+import { useGetAllBrandsQuery } from "../../features/brand/brandApi";
 import { setTitle } from "../../utils/setTitle";
+import { BrandTable } from "./BrandTable";
 
 export const AllBrands = () => {
+  const {
+    data: allBrands,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useGetAllBrandsQuery();
+
+  // decide what to render
+  let content;
+
+  if (isLoading)
+    <p className="text-center uppercase font-medium">loading...</p>;
+  if (!isLoading && isError)
+    content = (
+      <h3 className="text-center uppercase font-medium">
+        something went wrong!
+      </h3>
+    );
+
+  if (!isError && !isLoading && isSuccess && allBrands?.brands?.length === 0)
+    content = <p>No Brand found!</p>;
+  if (!isError && !isLoading && allBrands?.brands?.length > 0)
+    content = <BrandTable brands={allBrands.brands} />;
+
   //set page title
   setTitle("All Brands");
-  const status = false;
+
   return (
     <section className="space-y-4">
       <Heading title="All Brands" />
@@ -20,60 +45,7 @@ export const AllBrands = () => {
         </Link>
       </div>
       {/* brand table  */}
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-100">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Brand Picture
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Brand name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Status
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="bg-white border-b">
-              <th
-                scope="row"
-                className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap"
-              >
-                <img
-                  src="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?202110180743"
-                  alt="brand"
-                  className="w-11 h-11 rounded-full ring-2 ring-green-700 p-1"
-                />
-              </th>
-              <td className="px-6 py-3">Apple</td>
-              <td className="px-6 py-3 cursor-pointer">
-                {status ? (
-                  <span className="text-white font-semibold px-3 py-1 rounded-md bg-green-700">
-                    Active
-                  </span>
-                ) : (
-                  <span className="text-white font-semibold px-3 py-1 rounded-md bg-red-600">
-                    Inactive
-                  </span>
-                )}
-              </td>
-              <td className="px-6 py-3 sm:space-x-2 space-x-1">
-                <button className="text-[16px] text-white bg-green-700 p-1 rounded-md">
-                  <FaPencilAlt />
-                </button>
-                <button className="text-[16px] text-white bg-red-700 p-1 rounded-md">
-                  <FaTrashAlt />
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      {content}
     </section>
   );
 };
