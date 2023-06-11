@@ -6,9 +6,17 @@ import { UpdateModal } from "./UpdateModal";
 
 export const BrandTable = ({ brands }) => {
   const [open, setOpen] = useState(false);
+  const [brandId, setBrandId] = useState(undefined);
   const [updateStatus, { isLoading }] = useUpdateStatusMutation();
 
   if (isLoading) <p>loading..</p>;
+
+  //open modal
+  const openModal = (brandId, open) => {
+    setBrandId(brandId);
+    setOpen(open);
+  };
+
   //update status
   const updateStatusHandler = (brandId, data) => {
     updateStatus({
@@ -70,7 +78,7 @@ export const BrandTable = ({ brands }) => {
                   <td className="px-6 py-3 sm:space-x-2 space-x-1">
                     <button
                       className="text-[16px] text-white bg-green-700 p-1 rounded-md"
-                      onClick={() => setOpen(true)}
+                      onClick={() => openModal(_id, true)}
                     >
                       <FaPencilAlt />
                     </button>
@@ -84,7 +92,7 @@ export const BrandTable = ({ brands }) => {
           </tbody>
         </table>
       </div>
-      {open && <UpdateModal closeModal={setOpen} />}
+      {open && <UpdateModal closeModal={setOpen} brandId={brandId} />}
     </>
   );
 };

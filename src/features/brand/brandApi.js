@@ -7,6 +7,11 @@ export const brandApi = apiSlice.injectEndpoints({
         url: "/brand/all",
       }),
     }),
+    getBrand: builder.query({
+      query: (brandId) => ({
+        url: `/brand/${brandId}`,
+      }),
+    }),
     addBrand: builder.mutation({
       query: (data) => ({
         url: "/brand/add-brand",
@@ -58,6 +63,7 @@ export const brandApi = apiSlice.injectEndpoints({
 
 export const {
   useGetAllBrandsQuery,
+  useGetBrandQuery,
   useAddBrandMutation,
   useUpdateStatusMutation,
 } = brandApi;

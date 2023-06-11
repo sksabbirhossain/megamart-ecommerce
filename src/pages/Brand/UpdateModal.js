@@ -1,19 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../components/common/Button/Button";
 import { Form } from "../../components/common/Form/Form";
 import { FormInput } from "../../components/common/FormInput/FormInput";
 import { Textarea } from "../../components/common/FormInput/Textarea";
 import { Error } from "../../components/ui/Error";
+import { useGetBrandQuery } from "../../features/brand/brandApi";
 
-export const UpdateModal = ({ closeModal }) => {
+export const UpdateModal = ({ closeModal, brandId }) => {
   const [name, setName] = useState("");
   const [picture, setPicture] = useState(null);
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
-  const isLoading = true;
+
+  const {
+    data: brand,
+    isLoading: brandIsLoading,
+    isSuccess: brandIsSuccess,
+  } = useGetBrandQuery(brandId);
+
+  useEffect(() => {
+    if (!brandIsLoading && brandIsSuccess) {
+      const { name, description } = brand[0];
+      setName(name);
+      setDescription(description);
+    }
+  }, [brandIsLoading, brandIsSuccess, brand]);
+
   //handle update brand
   const handleSubmit = (e) => {
-    e.preventDeafult();
+    e.preventDefault();
   };
   return (
     <div className="absolute -top-4 left-0 w-full h-full z-50 flex justify-center items-center bg-black/50">
