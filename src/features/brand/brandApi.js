@@ -36,6 +36,24 @@ export const brandApi = apiSlice.injectEndpoints({
         } catch {}
       },
     }),
+    updateBrand: builder.mutation({
+      query: ({ brandId, data }) => ({
+        url: `/brand/update/${brandId}`,
+        method: "PATCH",
+        body: data,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data: brand } = await queryFulfilled;
+          apiSlice.util.updateQueryData("getAllBrands", undefined, (draft) => {
+            const brandIndex = draft?.brands?.findIndex(
+              (brand) => brand?._id === arg.brandId
+            );
+            draft.brands[brandIndex] = brand;
+          });
+        } catch (err) {}
+      },
+    }),
     updateStatus: builder.mutation({
       query: ({ data, brandid }) => ({
         url: `/brand/update/status/${brandid}`,
@@ -65,5 +83,6 @@ export const {
   useGetAllBrandsQuery,
   useGetBrandQuery,
   useAddBrandMutation,
+  useUpdateBrandMutation,
   useUpdateStatusMutation,
 } = brandApi;
