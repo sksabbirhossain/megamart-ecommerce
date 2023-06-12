@@ -45,12 +45,26 @@ export const brandApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const { data: brand } = await queryFulfilled;
-          apiSlice.util.updateQueryData("getAllBrands", undefined, (draft) => {
-            const brandIndex = draft?.brands?.findIndex(
-              (brand) => brand?._id === arg.brandId
-            );
-            draft.brands[brandIndex] = brand;
-          });
+
+          // pessimistic updates getAllBrands cache
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getAllBrands",
+              undefined,
+              (draft) => {
+                const brandIndex = draft?.brands?.findIndex(
+                  (brand) => brand?._id === brand._id
+                );
+                draft.brands[brandIndex] = brand;
+              }
+            )
+          );
+          // pessimistic updates getBrand cache
+          dispatch(
+            apiSlice.util.updateQueryData("getBrand", arg.brandId, (draft) => {
+              draft[0] = brand;
+            })
+          );
         } catch (err) {}
       },
     }),
