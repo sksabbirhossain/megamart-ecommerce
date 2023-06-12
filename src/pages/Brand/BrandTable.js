@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
-import { useUpdateStatusMutation } from "../../features/brand/brandApi";
+import {
+  useDeleteBrandMutation,
+  useUpdateStatusMutation,
+} from "../../features/brand/brandApi";
 import { UpdateModal } from "./UpdateModal";
 
 export const BrandTable = ({ brands }) => {
   const [open, setOpen] = useState(false);
   const [brandId, setBrandId] = useState(undefined);
   const [updateStatus, { isLoading }] = useUpdateStatusMutation();
+  const [deleteBrand, { isSuccess }] = useDeleteBrandMutation();
 
   if (isLoading) <p>loading..</p>;
 
@@ -26,6 +30,12 @@ export const BrandTable = ({ brands }) => {
       },
     });
     toast.success("Update Status");
+  };
+
+  //delete brand
+  const handleDelete = (brandId) => {
+    deleteBrand(brandId);
+    toast.success("Brand Deleted SuccessFully");
   };
   return (
     <>
@@ -82,7 +92,10 @@ export const BrandTable = ({ brands }) => {
                     >
                       <FaPencilAlt />
                     </button>
-                    <button className="text-[16px] text-white bg-red-700 p-1 rounded-md">
+                    <button
+                      className="text-[16px] text-white bg-red-700 p-1 rounded-md"
+                      onClick={() => handleDelete(_id)}
+                    >
                       <FaTrashAlt />
                     </button>
                   </td>

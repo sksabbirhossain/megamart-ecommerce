@@ -90,6 +90,25 @@ export const brandApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    deleteBrand: builder.mutation({
+      query: (brandId) => ({
+        url: `/brand/delete/${brandId}`,
+        method: "DELETE",
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        const result = dispatch(
+          apiSlice.util.updateQueryData("getAllBrands", undefined, (draft) => {
+            const brands = draft?.brands?.filter((brand) => brand?._id !== arg);
+            draft.brands = brands;
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch (err) {
+          result.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -99,4 +118,5 @@ export const {
   useAddBrandMutation,
   useUpdateBrandMutation,
   useUpdateStatusMutation,
+  useDeleteBrandMutation,
 } = brandApi;
