@@ -11,7 +11,7 @@ export const BrandTable = ({ brands }) => {
   const [open, setOpen] = useState(false);
   const [brandId, setBrandId] = useState(undefined);
   const [updateStatus, { isLoading }] = useUpdateStatusMutation();
-  const [deleteBrand, { isSuccess }] = useDeleteBrandMutation();
+  const [deleteBrand] = useDeleteBrandMutation();
 
   if (isLoading) <p>loading..</p>;
 
@@ -35,7 +35,7 @@ export const BrandTable = ({ brands }) => {
   //delete brand
   const handleDelete = (brandId) => {
     deleteBrand(brandId);
-    toast.success("Brand Deleted SuccessFully");
+    toast.success("Deleted Brand Successfully");
   };
   return (
     <>

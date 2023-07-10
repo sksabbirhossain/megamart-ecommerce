@@ -25,10 +25,12 @@ export const AllBrands = () => {
       </h3>
     );
 
-  if (!isError && !isLoading && isSuccess && allBrands?.brands?.length === 0)
-    content = <p  className="text-center uppercase font-medium">No Brand found!</p>;
-  if (!isError && !isLoading && allBrands?.brands?.length > 0)
-    content = <BrandTable brands={allBrands.brands} />;
+  if (!isError && !isLoading && isSuccess && allBrands?.length === 0)
+    content = (
+      <p className="text-center uppercase font-medium">No Brand found!</p>
+    );
+  if (!isError && !isLoading && allBrands?.length > 0)
+    content = <BrandTable brands={allBrands} />;
 
   //set page title
   setTitle("All Brands");

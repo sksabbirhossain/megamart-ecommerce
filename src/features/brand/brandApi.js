@@ -29,7 +29,7 @@ export const brandApi = apiSlice.injectEndpoints({
               "getAllBrands",
               undefined,
               (draft) => {
-                draft?.brands?.push(brandData);
+                draft?.push(brandData);
               }
             )
           );
@@ -45,6 +45,7 @@ export const brandApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const { data: brand } = await queryFulfilled;
+          console.log(brand);
 
           // pessimistic updates getAllBrands cache
           dispatch(
@@ -52,10 +53,10 @@ export const brandApi = apiSlice.injectEndpoints({
               "getAllBrands",
               undefined,
               (draft) => {
-                const brandIndex = draft?.brands?.findIndex(
-                  (brand) => brand?._id === brand._id
+                const brandIndex = draft?.findIndex(
+                  (data) => data?._id === brand._id
                 );
-                draft.brands[brandIndex] = brand;
+                draft[brandIndex] = brand;
               }
             )
           );
@@ -77,10 +78,10 @@ export const brandApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         const result = dispatch(
           apiSlice.util.updateQueryData("getAllBrands", undefined, (draft) => {
-            const brandIndex = draft?.brands?.findIndex(
+            const brandIndex = draft?.findIndex(
               (brand) => brand?._id === arg.brandid
             );
-            draft.brands[brandIndex].status = arg.data.status;
+            draft[brandIndex].status = arg.data.status;
           })
         );
         try {
@@ -98,8 +99,8 @@ export const brandApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         const result = dispatch(
           apiSlice.util.updateQueryData("getAllBrands", undefined, (draft) => {
-            const brands = draft?.brands?.filter((brand) => brand?._id !== arg);
-            draft.brands = brands;
+            const brands = draft?.filter((brand) => brand?._id !== arg);
+            return brands;
           })
         );
         try {
