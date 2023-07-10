@@ -1,11 +1,38 @@
 import React from "react";
-import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Heading } from "../../components/common/Heading/Heading";
 import { setTitle } from "../../utils/setTitle";
+import { useGetCategoriesQuery } from "../../features/category/categoryApi";
+import { CategoriesTable } from "./CategoriesTable";
 
 export const AllCategories = () => {
-  const status = false;
+  const {
+    data: categories,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useGetCategoriesQuery();
+
+
+  // decide what to render
+  let content;
+
+  if (isLoading)
+    <p className="text-center uppercase font-medium">loading...</p>;
+  if (!isLoading && isError)
+    content = (
+      <h3 className="text-center uppercase font-medium">
+        something went wrong!
+      </h3>
+    );
+
+  if (!isError && !isLoading && isSuccess && categories?.length === 0)
+    content = (
+      <p className="text-center uppercase font-medium">No Categories found!</p>
+    );
+  if (!isError && !isLoading && categories?.length > 0)
+    content = <CategoriesTable categories={categories} />;
+
 
   //set page title
   setTitle("All Categories");
@@ -20,61 +47,8 @@ export const AllCategories = () => {
           Add Category
         </Link>
       </div>
-      {/* brand table  */}
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-100">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Category Picture
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Category name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Status
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="bg-white border-b">
-              <th
-                scope="row"
-                className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap"
-              >
-                <img
-                  src="https://www.bdprice.com.bd/wp-content/uploads/2020/11/Apple-iPhone-13-Blue-Price-in-Bangladesh.jpg"
-                  alt="brand"
-                  className="w-11 h-11 rounded-full ring-2 ring-green-700 p-1"
-                />
-              </th>
-              <td className="px-6 py-3">iphone</td>
-              <td className="px-6 py-3 cursor-pointer">
-                {status ? (
-                  <span className="text-white font-semibold px-3 py-1 rounded-md bg-green-700">
-                    Active
-                  </span>
-                ) : (
-                  <span className="text-white font-semibold px-3 py-1 rounded-md bg-red-600">
-                    Inactive
-                  </span>
-                )}
-              </td>
-              <td className="px-6 py-3 sm:space-x-2 space-x-1">
-                <button className="text-[16px] text-white bg-green-700 p-1 rounded-md">
-                  <FaPencilAlt />
-                </button>
-                <button className="text-[16px] text-white bg-red-700 p-1 rounded-md">
-                  <FaTrashAlt />
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      {/* categories table  */}
+      {content}
     </section>
   );
 };

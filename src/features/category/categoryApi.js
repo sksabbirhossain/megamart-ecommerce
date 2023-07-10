@@ -4,7 +4,7 @@ export const categoryApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCategories: builder.query({
       query: () => ({
-        url: "/category/add",
+        url: "/category/all",
       }),
     }),
     addCategory: builder.mutation({
@@ -15,14 +15,14 @@ export const categoryApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
-          const result = await queryFulfilled;
+          const { data } = await queryFulfilled;
           // pessimistic updates cache
           dispatch(
             apiSlice.util.updateQueryData(
               "getCategories",
               undefined,
               (draft) => {
-                draft?.push(result);
+                draft?.push(data);
               }
             )
           );
