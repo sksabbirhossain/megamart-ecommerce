@@ -1,28 +1,49 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/common/Button/Button";
 import { Form } from "../../components/common/Form/Form";
 import { FormInput } from "../../components/common/FormInput/FormInput";
 import { SelectBox } from "../../components/common/FormInput/SelectBox";
 import { Heading } from "../../components/common/Heading/Heading";
+import { Error } from "../../components/ui/Error";
 import { useGetAllBrandsQuery } from "../../features/brand/brandApi";
+import { useAddCategoryMutation } from "../../features/category/categoryApi";
 
 export const AddCategory = () => {
   const [name, setName] = useState("");
   const [picture, setPicture] = useState(null);
   const [brandInfo, setBrandInfo] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const { data: brands, isLoading } = useGetAllBrandsQuery();
+  const [addCategory, { isLoading: resLoading, isSuccess, error: resError }] =
+    useAddCategoryMutation();
 
-  //submit for data
+  useEffect(() => {
+    setError("");
+    if (!resLoading && !isLoading && isSuccess) {
+      toast.success("Category Added SuccessFull");
+      return navigate("/all-categories");
+    }
+    if (resError?.error) {
+      setError(resError.error);
+    }
+    if (resError?.status === 500) {
+      setError("Internal Server Error");
+    }
+  }, [resLoading, isSuccess, isLoading, resError, navigate]);
+
+  //submit formdata
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
     formData.append("picture", picture);
     formData.append("brandInfo", brandInfo);
-
-    console.log(name, picture, brandInfo);
+    addCategory(formData);
   };
 
   return (
@@ -74,6 +95,7 @@ export const AddCategory = () => {
             </SelectBox>
             <Button name="Add" className="w-full" />
           </Form>
+          {error !== "" && <Error error={error} />}
         </div>
       </div>
     </section>

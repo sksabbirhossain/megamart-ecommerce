@@ -1,25 +1,28 @@
 import { apiSlice } from "../api/apiSlice";
 
-export const brandApi = apiSlice.injectEndpoints({
+export const categoryApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    addBrand: builder.mutation({
+    getCategories: builder.query({
+      query: () => ({
+        url: "/category/add",
+      }),
+    }),
+    addCategory: builder.mutation({
       query: (data) => ({
-        url: "/brand/add-brand",
+        url: "/category/add-category",
         method: "POST",
         body: data,
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
-          const res = await queryFulfilled;
-          const { brand: brandData } = res.data;
-
+          const result = await queryFulfilled;
           // pessimistic updates cache
           dispatch(
             apiSlice.util.updateQueryData(
-              "getAllBrands",
+              "getCategories",
               undefined,
               (draft) => {
-                draft?.brands?.push(brandData);
+                draft?.push(result);
               }
             )
           );
@@ -29,11 +32,4 @@ export const brandApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {
-  useGetAllBrandsQuery,
-  useGetBrandQuery,
-  useAddBrandMutation,
-  useUpdateBrandMutation,
-  useUpdateStatusMutation,
-  useDeleteBrandMutation,
-} = brandApi;
+export const { useGetCategoriesQuery, useAddCategoryMutation } = categoryApi;
