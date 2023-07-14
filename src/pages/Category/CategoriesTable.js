@@ -1,9 +1,13 @@
 import React from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
-import { useUpdateSatusMutation } from "../../features/category/categoryApi";
+import {
+  useDeleteCategoryMutation,
+  useUpdateSatusMutation,
+} from "../../features/category/categoryApi";
 
 export const CategoriesTable = ({ categories }) => {
-  const [updateStatus, { isLoading, isSuccess }] = useUpdateSatusMutation();
+  const [updateStatus] = useUpdateSatusMutation();
+  const [deleteCategory] = useDeleteCategoryMutation();
 
   //update Status
   const updateStatusHandler = (id, data) => {
@@ -13,6 +17,11 @@ export const CategoriesTable = ({ categories }) => {
         status: data,
       },
     });
+  };
+
+  //delete category
+  const deleteHandler = (id) => {
+    deleteCategory(id);
   };
   return (
     <>
@@ -68,7 +77,10 @@ export const CategoriesTable = ({ categories }) => {
                     <button className="text-[16px] text-white bg-green-700 p-1 rounded-md">
                       <FaPencilAlt />
                     </button>
-                    <button className="text-[16px] text-white bg-red-700 p-1 rounded-md">
+                    <button
+                      className="text-[16px] text-white bg-red-700 p-1 rounded-md"
+                      onClick={() => deleteHandler(_id)}
+                    >
                       <FaTrashAlt />
                     </button>
                   </td>

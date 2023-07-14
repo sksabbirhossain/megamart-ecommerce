@@ -51,6 +51,25 @@ export const categoryApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    deleteCategory: builder.mutation({
+      query: (id) => ({
+        url: `/category/delete/${id}`,
+        method: "DELETE",
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        const result = dispatch(
+          apiSlice.util.updateQueryData("getCategories", undefined, (draft) => {
+            const category = draft?.filter((category) => category._id !== arg);
+            return category;
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          result.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -58,4 +77,5 @@ export const {
   useGetCategoriesQuery,
   useAddCategoryMutation,
   useUpdateSatusMutation,
+  useDeleteCategoryMutation,
 } = categoryApi;
