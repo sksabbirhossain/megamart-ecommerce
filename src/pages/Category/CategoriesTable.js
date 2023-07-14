@@ -1,7 +1,19 @@
 import React from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { useUpdateSatusMutation } from "../../features/category/categoryApi";
 
 export const CategoriesTable = ({ categories }) => {
+  const [updateStatus, { isLoading, isSuccess }] = useUpdateSatusMutation();
+
+  //update Status
+  const updateStatusHandler = (id, data) => {
+    updateStatus({
+      id,
+      data: {
+        status: data,
+      },
+    });
+  };
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -38,7 +50,10 @@ export const CategoriesTable = ({ categories }) => {
                     />
                   </th>
                   <td className="px-6 py-3">{name}</td>
-                  <td className="px-6 py-3 cursor-pointer">
+                  <td
+                    className="px-6 py-3 cursor-pointer"
+                    onClick={() => updateStatusHandler(_id, !status)}
+                  >
                     {status ? (
                       <span className="text-white font-semibold px-3 py-1 rounded-md bg-green-700">
                         Active

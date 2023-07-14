@@ -29,7 +29,33 @@ export const categoryApi = apiSlice.injectEndpoints({
         } catch {}
       },
     }),
+    updateSatus: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/category/update/status/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        const result = dispatch(
+          apiSlice.util.updateQueryData("getCategories", undefined, (draft) => {
+            const categoryIndex = draft?.findIndex(
+              (category) => category._id === arg.id
+            );
+            draft[categoryIndex].status = arg.data.status;
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          result.undo();
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetCategoriesQuery, useAddCategoryMutation } = categoryApi;
+export const {
+  useGetCategoriesQuery,
+  useAddCategoryMutation,
+  useUpdateSatusMutation,
+} = categoryApi;
