@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import {
   useDeleteCategoryMutation,
   useUpdateSatusMutation,
 } from "../../features/category/categoryApi";
+import { CategoryModal } from "./CategoryModal";
 
 export const CategoriesTable = ({ categories }) => {
+  const [open, setOpen] = useState(false);
+  const [categoryId, setCategoryId] = useState(undefined);
   const [updateStatus] = useUpdateSatusMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
 
@@ -17,6 +20,12 @@ export const CategoriesTable = ({ categories }) => {
         status: data,
       },
     });
+  };
+
+  //open modal
+  const openModal = (categoryId, open) => {
+    setCategoryId(categoryId);
+    setOpen(open);
   };
 
   //delete category
@@ -74,7 +83,10 @@ export const CategoriesTable = ({ categories }) => {
                     )}
                   </td>
                   <td className="px-6 py-3 sm:space-x-2 space-x-1">
-                    <button className="text-[16px] text-white bg-green-700 p-1 rounded-md">
+                    <button
+                      className="text-[16px] text-white bg-green-700 p-1 rounded-md"
+                      onClick={() => openModal(_id, true)}
+                    >
                       <FaPencilAlt />
                     </button>
                     <button
@@ -90,7 +102,7 @@ export const CategoriesTable = ({ categories }) => {
           </tbody>
         </table>
       </div>
-      {/* {open && <UpdateModal closeModal={setOpen} brandId={brandId} />} */}
+      {open && <CategoryModal closeModal={setOpen} categoryId={categoryId} />}
     </>
   );
 };
