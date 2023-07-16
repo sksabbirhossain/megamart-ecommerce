@@ -7,6 +7,11 @@ export const categoryApi = apiSlice.injectEndpoints({
         url: "/category/all",
       }),
     }),
+    getCategory: builder.query({
+      query: (id) => ({
+        url: `/category/${id}`,
+      }),
+    }),
     addCategory: builder.mutation({
       query: (data) => ({
         url: "/category/add-category",
@@ -28,6 +33,13 @@ export const categoryApi = apiSlice.injectEndpoints({
           );
         } catch {}
       },
+    }),
+    updateCategory: builder.mutation({
+      query: ({ categoryId, data }) => ({
+        url: `/category/update/${categoryId}`,
+        method: "PATCH",
+        body: data,
+      }),
     }),
     updateSatus: builder.mutation({
       query: ({ id, data }) => ({
@@ -75,7 +87,9 @@ export const categoryApi = apiSlice.injectEndpoints({
 
 export const {
   useGetCategoriesQuery,
+  useGetCategoryQuery,
   useAddCategoryMutation,
+  useUpdateCategoryMutation,
   useUpdateSatusMutation,
   useDeleteCategoryMutation,
 } = categoryApi;
