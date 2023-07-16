@@ -3,15 +3,17 @@ import { toast } from "react-hot-toast";
 import { Button } from "../../components/common/Button/Button";
 import { Form } from "../../components/common/Form/Form";
 import { FormInput } from "../../components/common/FormInput/FormInput";
-import { Textarea } from "../../components/common/FormInput/Textarea";
+import { SelectBox } from "../../components/common/FormInput/SelectBox";
 import { Error } from "../../components/ui/Error";
+import { useGetAllBrandsQuery } from "../../features/brand/brandApi";
 
 export const CategoryModal = ({ closeModal, categoryId }) => {
   const [name, setName] = useState("");
   const [picture, setPicture] = useState(null);
-  const [description, setDescription] = useState("");
+  const [brandInfo, setBrandInfo] = useState("");
   const [error, setError] = useState("");
-  const isLoading = true;
+
+  const { data: brands, isLoading } = useGetAllBrandsQuery();
 
   //   const {
   //     data: brand,
@@ -59,7 +61,7 @@ export const CategoryModal = ({ closeModal, categoryId }) => {
     <div className="absolute -top-4 left-0 w-full h-full z-50 flex justify-center items-center bg-black/50">
       <div className="w-[450px] bg-white rounded-md mx-2 sm:mx-0 p-5">
         <div className="flex justify-between items-center mb-4 ">
-          <p className="text-xl font-normal capitalize">Update Brand</p>
+          <p className="text-xl font-normal capitalize">Update Category</p>
           <button
             className="bg-red-400 rounded-md px-2 text-white"
             onClick={() => closeModal(false)}
@@ -69,27 +71,38 @@ export const CategoryModal = ({ closeModal, categoryId }) => {
         </div>
         <Form encType="multipart/form-data">
           <FormInput
-            label="Brand Name"
+            label="Category Name"
             type="text"
             name="name"
-            placeholder="brand name"
+            placeholder="category name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <FormInput
-            label="Brand Picture"
+            label="Category Picture"
             type="file"
             name="picture"
-            placeholder="brand picture"
+            placeholder="category picture"
             onChange={(e) => setPicture(e.target.files[0])}
           />
-          <Textarea
-            label="Description"
-            name="description"
-            placeholder="brand description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <SelectBox
+            label="Select Brand"
+            onChange={(e) => setBrandInfo(e.target.value)}
+          >
+            <option value="" className="capitalize">
+              select
+            </option>
+            {!isLoading &&
+              brands?.map((brand) => (
+                <option
+                  value={brand._id}
+                  className="capitalize"
+                  key={brand._id}
+                >
+                  {brand.name}
+                </option>
+              ))}
+          </SelectBox>
           <Button
             name={isLoading ? "loading.." : "update"}
             className="w-full"
