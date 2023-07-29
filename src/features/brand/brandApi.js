@@ -45,7 +45,6 @@ export const brandApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const { data: brand } = await queryFulfilled;
-          console.log(brand);
 
           // pessimistic updates getAllBrands cache
           dispatch(

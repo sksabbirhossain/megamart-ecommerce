@@ -12,6 +12,11 @@ export const categoryApi = apiSlice.injectEndpoints({
         url: `/category/${id}`,
       }),
     }),
+    getCategoriesByBrand: builder.query({
+      query: (brandId) => ({
+        url: `/category/get-category/${brandId}`,
+      }),
+    }),
     addCategory: builder.mutation({
       query: (data) => ({
         url: "/category/add-category",
@@ -40,6 +45,34 @@ export const categoryApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data: category } = await queryFulfilled;
+          // pessimistic updates getAllBrands cache
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getCategories",
+              undefined,
+              (draft) => {
+                const categoryIndex = draft?.findIndex(
+                  (data) => data?._id === category._id
+                );
+                draft[categoryIndex] = category;
+              }
+            )
+          );
+          // pessimistic updates getcategory cache
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getCategory",
+              arg.categoryId,
+              (draft) => {
+                draft[0] = category;
+              }
+            )
+          );
+        } catch {}
+      },
     }),
     updateSatus: builder.mutation({
       query: ({ id, data }) => ({
@@ -88,6 +121,7 @@ export const categoryApi = apiSlice.injectEndpoints({
 export const {
   useGetCategoriesQuery,
   useGetCategoryQuery,
+  useGetCategoriesByBrandQuery,
   useAddCategoryMutation,
   useUpdateCategoryMutation,
   useUpdateSatusMutation,
