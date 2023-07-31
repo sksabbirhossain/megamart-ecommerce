@@ -1,13 +1,17 @@
 import React from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { useUpdateProductStatusMutation } from "../../features/product/productApi";
 
 export const ProductTable = ({ products }) => {
+  const [updateProductStatus, { isLoading }] = useUpdateProductStatusMutation();
 
   //update product status
-  const updateStatusHandler = (productId) => {
-    alert(productId)
-  }
+  const updateStatusHandler = (productId, status) => {
+    updateProductStatus({ productId, data: { status: !status } });
+  };
 
+  //delete product
+  
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500">
@@ -35,9 +39,9 @@ export const ProductTable = ({ products }) => {
         </thead>
         <tbody>
           {products?.map((product) => {
-            const {_id, name, picture, price, stock, status } = product;
+            const { _id, name, picture, price, stock, status } = product;
             return (
-              <tr className="bg-white border-b">
+              <tr className="bg-white border-b" key={_id}>
                 <th
                   scope="row"
                   className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap"
@@ -51,7 +55,10 @@ export const ProductTable = ({ products }) => {
                 <td className="px-6 py-3 capitalize">{name}</td>
                 <td className="px-6 py-3 capitalize">${price}</td>
                 <td className="px-6 py-3 capitalize">{stock}</td>
-                <td className="px-6 py-3 cursor-pointer" onClick={()=>updateStatusHandler(_id)}>
+                <td
+                  className="px-6 py-3 cursor-pointer"
+                  onClick={() => updateStatusHandler(_id, status)}
+                >
                   {status ? (
                     <span className="text-white font-semibold px-3 py-1 rounded-md bg-green-700">
                       Active
