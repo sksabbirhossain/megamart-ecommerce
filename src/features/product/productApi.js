@@ -26,8 +26,15 @@ export const productApi = apiSlice.injectEndpoints({
               draft?.push(data);
             })
           );
-        } catch (err) {}
+        } catch (err) { }
       },
+    }),
+    updateProduct: builder.mutation({
+      query: ({ productId, data }) => ({
+        url: `/update/update-product/${productId}`,
+        method: "PATCH",
+        body: data
+      })
     }),
     updateProductStatus: builder.mutation({
       query: ({ productId, data }) => ({
@@ -77,6 +84,7 @@ export const {
   useGetProductsQuery,
   useGetProductQuery,
   useAddProductMutation,
+  useUpdateProductMutation,
   useUpdateProductStatusMutation,
   useDeleteProductMutation,
 } = productApi;

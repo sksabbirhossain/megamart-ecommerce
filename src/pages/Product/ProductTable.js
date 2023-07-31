@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import {
   useDeleteProductMutation,
   useUpdateProductStatusMutation,
 } from "../../features/product/productApi";
+import { ProductModal } from "./ProductModal";
 
 export const ProductTable = ({ products }) => {
+  const [openModal, setOpenModal] = useState(false);
+  const [productId, setProductId] = useState("");
+  
   const [updateProductStatus] = useUpdateProductStatusMutation();
   const [deleteProduct] = useDeleteProductMutation();
 
@@ -18,7 +22,15 @@ export const ProductTable = ({ products }) => {
   const deleteProductHandler = (productId) => {
     deleteProduct(productId);
   };
+
+  //update handler
+  const openModalHandler = (productId, open) => {
+    setOpenModal(open)
+    setProductId(productId)
+  }
+
   return (
+    <>
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-gray-100">
@@ -76,7 +88,7 @@ export const ProductTable = ({ products }) => {
                   )}
                 </td>
                 <td className="px-6 py-3 sm:space-x-2 space-x-1">
-                  <button className="text-[16px] text-white bg-green-700 p-1 rounded-md">
+                  <button className="text-[16px] text-white bg-green-700 p-1 rounded-md" onClick={()=>openModalHandler(_id, true)}>
                     <FaPencilAlt />
                   </button>
                   <button
@@ -91,6 +103,9 @@ export const ProductTable = ({ products }) => {
           })}
         </tbody>
       </table>
+      
     </div>
+    { openModal && <ProductModal closeModal={setOpenModal} productId={productId} /> }
+  </>
   );
 };

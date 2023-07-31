@@ -38,18 +38,18 @@ export const CategoryModal = ({ closeModal, categoryId }) => {
     }
   }, [categoryIsLoading, categoryIsSuccess, category]);
 
-    useEffect(() => {
-      if (!updateLoading && isSuccess) {
-        toast.success("Category Updated SuccessFull");
-        closeModal(false);
-      }
-      if (resError?.error) {
-        setError(resError.error);
-      }
-      if (resError?.status === 500) {
-        setError("Internal Server Error");
-      }
-    }, [updateLoading, isSuccess, resError, closeModal]);
+  useEffect(() => {
+    if (!updateLoading && isSuccess) {
+      toast.success("Category Updated SuccessFull");
+      closeModal(false);
+    }
+    if (resError?.error) {
+      setError(resError.error);
+    }
+    if (resError?.status === 500) {
+      setError("Internal Server Error");
+    }
+  }, [updateLoading, isSuccess, resError, closeModal]);
 
   //   //handle update brand
   const handleSubmit = (e) => {
