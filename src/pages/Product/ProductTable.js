@@ -2,6 +2,12 @@ import React from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
 export const ProductTable = ({ products }) => {
+
+  //update product status
+  const updateStatusHandler = (productId) => {
+    alert(productId)
+  }
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500">
@@ -29,7 +35,7 @@ export const ProductTable = ({ products }) => {
         </thead>
         <tbody>
           {products?.map((product) => {
-            const { name, picture, price, stock, status } = product;
+            const {_id, name, picture, price, stock, status } = product;
             return (
               <tr className="bg-white border-b">
                 <th
@@ -45,7 +51,7 @@ export const ProductTable = ({ products }) => {
                 <td className="px-6 py-3 capitalize">{name}</td>
                 <td className="px-6 py-3 capitalize">${price}</td>
                 <td className="px-6 py-3 capitalize">{stock}</td>
-                <td className="px-6 py-3 cursor-pointer">
+                <td className="px-6 py-3 cursor-pointer" onClick={()=>updateStatusHandler(_id)}>
                   {status ? (
                     <span className="text-white font-semibold px-3 py-1 rounded-md bg-green-700">
                       Active
