@@ -1,9 +1,13 @@
 import React from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
-import { useUpdateProductStatusMutation } from "../../features/product/productApi";
+import {
+  useDeleteProductMutation,
+  useUpdateProductStatusMutation,
+} from "../../features/product/productApi";
 
 export const ProductTable = ({ products }) => {
-  const [updateProductStatus, { isLoading }] = useUpdateProductStatusMutation();
+  const [updateProductStatus] = useUpdateProductStatusMutation();
+  const [deleteProduct] = useDeleteProductMutation();
 
   //update product status
   const updateStatusHandler = (productId, status) => {
@@ -11,7 +15,9 @@ export const ProductTable = ({ products }) => {
   };
 
   //delete product
-  
+  const deleteProductHandler = (productId) => {
+    deleteProduct(productId);
+  };
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500">
@@ -73,7 +79,10 @@ export const ProductTable = ({ products }) => {
                   <button className="text-[16px] text-white bg-green-700 p-1 rounded-md">
                     <FaPencilAlt />
                   </button>
-                  <button className="text-[16px] text-white bg-red-700 p-1 rounded-md">
+                  <button
+                    className="text-[16px] text-white bg-red-700 p-1 rounded-md"
+                    onClick={() => deleteProductHandler(_id)}
+                  >
                     <FaTrashAlt />
                   </button>
                 </td>

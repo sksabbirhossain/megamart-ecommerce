@@ -16,7 +16,6 @@ export const productApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data);
           dispatch(
             apiSlice.util.updateQueryData("getProducts", undefined, (draft) => {
               draft?.push(data);
@@ -48,10 +47,23 @@ export const productApi = apiSlice.injectEndpoints({
       },
     }),
     deleteProduct: builder.mutation({
-      query: (productId) => ({
-        url: `/product/delete-product/${productId}`,
+      query: (id) => ({
+        url: `/product/delete-product/${id}`,
         method: "DELETE",
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        const result = dispatch(
+          apiSlice.util.updateQueryData("getProducts", undefined, (draft) => {
+            const products = draft?.filter((product) => product?._id !== arg);
+            return products;
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch (err) {
+          result.undo();
+        }
+      },
     }),
   }),
 });
