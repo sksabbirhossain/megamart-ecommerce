@@ -26,15 +26,41 @@ export const productApi = apiSlice.injectEndpoints({
               draft?.push(data);
             })
           );
-        } catch (err) { }
+        } catch (err) {}
       },
     }),
     updateProduct: builder.mutation({
       query: ({ productId, data }) => ({
-        url: `/update/update-product/${productId}`,
+        url: `/product/update-product/${productId}`,
         method: "PATCH",
-        body: data
-      })
+        body: data,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data } = await queryFulfilled;
+
+          // pessimistic updates getProducts cache
+          dispatch(
+            apiSlice.util.updateQueryData("getProducts", undefined, (draft) => {
+              const productIndex = draft?.findIndex(
+                (product) => product?._id === data._id
+              );
+              draft[productIndex] = data;
+            })
+          );
+
+          // pessimistic updates getBrand cache
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getProduct",
+              arg.productId,
+              (draft) => {
+                // console.log(JSON.stringify(draft));
+              }
+            )
+          );
+        } catch (err) {}
+      },
     }),
     updateProductStatus: builder.mutation({
       query: ({ productId, data }) => ({

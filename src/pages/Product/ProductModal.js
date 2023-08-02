@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/common/Button/Button";
 import { Form } from "../../components/common/Form/Form";
 import { FormInput } from "../../components/common/FormInput/FormInput";
 import { SelectBox } from "../../components/common/FormInput/SelectBox";
 import { Textarea } from "../../components/common/FormInput/Textarea";
-import { Heading } from "../../components/common/Heading/Heading";
 import { Error } from "../../components/ui/Error";
 import { useGetAllBrandsQuery } from "../../features/brand/brandApi";
 import { useGetCategoriesByBrandQuery } from "../../features/category/categoryApi";
-import { useAddProductMutation, useGetProductQuery } from "../../features/product/productApi";
+import {
+  useGetProductQuery,
+  useUpdateProductMutation,
+} from "../../features/product/productApi";
 
 export const ProductModal = ({ closeModal, productId }) => {
   const [name, setName] = useState("");
@@ -23,11 +24,12 @@ export const ProductModal = ({ closeModal, productId }) => {
   const [error, setError] = useState("");
   const [brandCheck, setBrandCkeck] = useState(false);
 
-  const navigate = useNavigate();
-
   //get product by productId
-  const { data: product, isLoading: productLoading, isSuccess: productIsSuccess } = useGetProductQuery(productId)
-  console.log(product)
+  const {
+    data: product,
+    isLoading: productLoading,
+    isSuccess: productIsSuccess,
+  } = useGetProductQuery(productId);
 
   //get all brands
   const { data: brands, isLoading: brandFetchLoading } = useGetAllBrandsQuery();
@@ -39,17 +41,19 @@ export const ProductModal = ({ closeModal, productId }) => {
     });
 
   //update product api
-  const [addProduct, { isLoading: resLoading, isSuccess, error: resError }] =
-    useAddProductMutation();
+  const [updateProduct, { isLoading: resLoading, isSuccess, error: resError }] =
+    useUpdateProductMutation();
 
   //set old product data
   useEffect(() => {
     if (!productLoading && productIsSuccess) {
-      const { name, brandInfo, price, stock, description } = product[0];
+      const { name, price, stock, brand, category, description } = product;
       setName(name);
-      setPrice(price)
-      setStock(stock)
-      setDescription(description)
+      setPrice(price);
+      setStock(stock);
+      setDescription(description);
+      setBrand(brand?._id);
+      setCategory(category?._id);
     }
   }, [productLoading, productIsSuccess, product]);
 
@@ -62,8 +66,8 @@ export const ProductModal = ({ closeModal, productId }) => {
   useEffect(() => {
     setError("");
     if (!resLoading && isSuccess) {
-      toast.success("Product Added SuccessFull");
-      return navigate("/all-products");
+      toast.success("Product Update SuccessFull");
+      return closeModal(false);
     }
     if (resError?.error) {
       setError(resError.error);
@@ -71,12 +75,23 @@ export const ProductModal = ({ closeModal, productId }) => {
     if (resError?.status === 500) {
       setError("Internal Server Error");
     }
-  }, [resLoading, isSuccess, resError, navigate]);
+  }, [resLoading, isSuccess, resError, closeModal]);
 
   //handle update submit
   const handleSubmit = (e) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("stock", stock);
+    formData.append("brand", brand);
+    formData.append("category", category);
+    if (picture) {
+      formData.append("picture", picture);
+    }
+    updateProduct({ productId, data: formData });
+  };
 
   return (
     <section>
@@ -115,9 +130,10 @@ export const ProductModal = ({ closeModal, productId }) => {
                     name="brand"
                     onChange={(e) => setBrandHandler(e.target.value)}
                   >
-                    <option value="1" className="capitalize">
-                      select
+                    <option value={product?.brand?._id} className="capitalize">
+                      {product?.brand?.name}
                     </option>
+
                     {!brandFetchLoading &&
                       brands?.map((brand) => (
                         <option
@@ -135,8 +151,11 @@ export const ProductModal = ({ closeModal, productId }) => {
                     name="category"
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <option value="1" className="capitalize">
-                      select
+                    <option
+                      value={product?.category?._id}
+                      className="capitalize"
+                    >
+                      {product?.category?.name}
                     </option>
                     {!categoryFetchLoading &&
                       categories?.map((category) => (
@@ -185,5 +204,5 @@ export const ProductModal = ({ closeModal, productId }) => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
