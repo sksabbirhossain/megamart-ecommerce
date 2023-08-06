@@ -13,6 +13,6 @@ export const PrivateRoute = ({ children }) => {
   return admin !== undefined && accessToken !== undefined ? (
     children
   ) : (
-    <Navigate to="/" />
+    <Navigate to="/admin" />
   );
 };

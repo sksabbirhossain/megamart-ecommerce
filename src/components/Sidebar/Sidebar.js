@@ -28,7 +28,7 @@ export const Sidebar = () => {
     localStorage.removeItem("adminAuth");
     dispatch(adminLoggedOut());
     toast.success("Logout SuccessFull");
-    navigate("/");
+    navigate("/admin");
   };
 
   return (
@@ -98,7 +98,7 @@ export const Sidebar = () => {
               >
                 <li>
                   <NavLink
-                    to="/all-brands"
+                    to="/admin/all-brands"
                     className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">All Brands</span>
@@ -106,7 +106,7 @@ export const Sidebar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/add-brand"
+                    to="/admin/add-brand"
                     className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">Add Brand</span>
@@ -159,7 +159,7 @@ export const Sidebar = () => {
               >
                 <li>
                   <NavLink
-                    to="/all-categories"
+                    to="/admin/all-categories"
                     className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">All Categories</span>
@@ -167,7 +167,7 @@ export const Sidebar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/add-category"
+                    to="/admin/add-category"
                     className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">Add Category</span>
@@ -219,7 +219,7 @@ export const Sidebar = () => {
               >
                 <li>
                   <NavLink
-                    to="/all-products"
+                    to="/admin/all-products"
                     className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">All Proudcts</span>
@@ -227,7 +227,7 @@ export const Sidebar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/add-product"
+                    to="/admin/add-product"
                     className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="ml-9">Add Product</span>
@@ -237,7 +237,7 @@ export const Sidebar = () => {
             </li>
             <li>
               <NavLink
-                to="/orders"
+                to="/admin/orders"
                 className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
@@ -248,7 +248,7 @@ export const Sidebar = () => {
             </li>
             <li>
               <NavLink
-                to="/customers"
+                to="/admin/customers"
                 className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
@@ -259,7 +259,7 @@ export const Sidebar = () => {
             </li>
             <li>
               <NavLink
-                to="/statistics"
+                to="/admin/statistics"
                 className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
@@ -270,7 +270,7 @@ export const Sidebar = () => {
             </li>
             <li>
               <NavLink
-                to="/sellers"
+                to="/admin/sellers"
                 className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
@@ -281,7 +281,7 @@ export const Sidebar = () => {
             </li>
             <li>
               <NavLink
-                to="/hotoffers"
+                to="/admin/hotoffers"
                 className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
@@ -292,7 +292,7 @@ export const Sidebar = () => {
             </li>
             <li>
               <NavLink
-                to="/settings"
+                to="/admin/settings"
                 className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
               >
                 <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">

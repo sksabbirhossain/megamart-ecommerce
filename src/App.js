@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { useAdminAuthChecked } from "./hooks/useAdminAuthChecked";
-import { Main } from "./layouts/Main";
+import { AdminLayout } from "./layouts/AdminLayout";
 import { AddBrand } from "./pages/Brand/AddBrand";
 import { AllBrands } from "./pages/Brand/AllBrands";
 import { AddCategory } from "./pages/Category/AddCategory";
@@ -11,9 +11,11 @@ import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { AddProduct } from "./pages/Product/AddProduct";
 import { AllProducts } from "./pages/Product/AllProducts";
-// import { Register } from "./pages/Register";
+import { Register } from "./pages/Register";
 import { PrivateRoute } from "./routes/admin/PrivateRoute";
 import { PublicRoute } from "./routes/admin/PublicRoute";
+import { UserLayout } from "./layouts/UserLayout";
+import { Home } from "./pages/User/Home/Home";
 
 function App() {
   const adminAuthChecked = useAdminAuthChecked();
@@ -22,16 +24,21 @@ function App() {
   }
   return (
     <Routes>
-      <Route path="/" element={<PublicRoute><Login /></PublicRoute>} />
-      {/* <Route path="/register" element={<Register />} /> */}
-      <Route path="/" element={<Main />}>
+      <Route path="/admin" element={<PublicRoute><Login /></PublicRoute>} />
+
+      <Route path="/" element={<UserLayout/>}>
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Home/>} />
+      </Route>
+
+      <Route path="/admin" element={<AdminLayout/>}>
         <Route path="/admin/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path="/all-brands" element={<PrivateRoute><AllBrands /></PrivateRoute>} />
-        <Route path="/add-brand" element={<PrivateRoute><AddBrand /></PrivateRoute>} />
-        <Route path="/all-categories" element={<PrivateRoute><AllCategories /></PrivateRoute>} />
-        <Route path="/add-category" element={<PrivateRoute><AddCategory /></PrivateRoute>} />
-        <Route path="/all-products" element={<PrivateRoute><AllProducts /></PrivateRoute>} />
-        <Route path="/add-product" element={<PrivateRoute><AddProduct /></PrivateRoute>} />
+        <Route path="/admin/all-brands" element={<PrivateRoute><AllBrands /></PrivateRoute>} />
+        <Route path="/admin/add-brand" element={<PrivateRoute><AddBrand /></PrivateRoute>} />
+        <Route path="/admin/all-categories" element={<PrivateRoute><AllCategories /></PrivateRoute>} />
+        <Route path="/admin/add-category" element={<PrivateRoute><AddCategory /></PrivateRoute>} />
+        <Route path="/admin/all-products" element={<PrivateRoute><AllProducts /></PrivateRoute>} />
+        <Route path="/admin/add-product" element={<PrivateRoute><AddProduct /></PrivateRoute>} />
       </Route>
       <Route path="/*" element={<NotFound />} />
     </Routes>
