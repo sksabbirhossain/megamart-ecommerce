@@ -6,7 +6,7 @@ export const ProductCard = ({ product }) => {
   const { id, image, description, price, title, rating } = product || {};
   console.log(rating);
   return (
-    <div className="max-w-[250px] h-[325px] border-gray-100 border rounded-md ">
+    <div className="max-w-[250px] h-[325px] border-gray-100 border rounded-md hover:shadow-lg duration-100 ease-linear">
       <Link to={`/product-details/${id}`}>
         <div className="pt-2">
           <img
@@ -34,7 +34,7 @@ export const ProductCard = ({ product }) => {
           <span className="text-slate-800 text-sm ml-1">({rating?.count})</span>
         </p>
         <div>
-          <button className="bg-green-900 text-white/80 w-full rounded-md py-1">
+          <button className="bg-green-900 duration-100 ease-linear hover:bg-green-700 text-white/80 w-full rounded-md py-1">
             Add To Cart
           </button>
         </div>
