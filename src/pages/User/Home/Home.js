@@ -4,6 +4,7 @@ import { Banner } from "./Banner";
 import { ForYouProduct } from "./ForYouProduct";
 import { BestCategory } from "./BestCategory";
 import { FeaturedProduct } from "./FeaturedProduct";
+import { Subscribe } from "./Subscribe";
 
 export const Home = () => {
   //set page title
@@ -14,6 +15,7 @@ export const Home = () => {
       <FeaturedProduct/>
       <BestCategory/>
       <ForYouProduct />
+      <Subscribe/>
     </>
   );
 };
