@@ -2,8 +2,9 @@ import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // import required modules
@@ -19,6 +20,7 @@ export const Banner = () => {
         modules={[Pagination, Autoplay, EffectFade]}
         className="mySwiper h-72"
         loop={true}
+        effect={"fade"}
         autoplay={{
           delay: 2000,
           disableOnInteraction: false,

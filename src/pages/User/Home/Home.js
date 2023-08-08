@@ -1,9 +1,10 @@
 import React from "react";
 import { setTitle } from "../../../utils/setTitle";
 import { Banner } from "./Banner";
-import { ForYouProduct } from "./ForYouProduct";
 import { BestCategory } from "./BestCategory";
+import { BrandSlider } from "./BrandSlider";
 import { FeaturedProduct } from "./FeaturedProduct";
+import { ForYouProduct } from "./ForYouProduct";
 import { Subscribe } from "./Subscribe";
 
 export const Home = () => {
@@ -12,10 +13,11 @@ export const Home = () => {
   return (
     <>
       <Banner />
-      <FeaturedProduct/>
-      <BestCategory/>
+      <FeaturedProduct />
+      <BestCategory />
       <ForYouProduct />
-      <Subscribe/>
+      <BrandSlider />
+      <Subscribe />
     </>
   );
 };

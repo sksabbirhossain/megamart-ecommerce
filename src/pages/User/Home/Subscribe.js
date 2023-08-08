@@ -2,7 +2,7 @@ import React from "react";
 
 export const Subscribe = () => {
   return (
-    <div className="my-7 bg-gray-200 py-6">
+    <div className="my-7 bg-gray-200/40 py-6">
       <div className="space-y-3">
         <h2 className="text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-800">
           Subscribe to our newsletter to get updates{" "}
