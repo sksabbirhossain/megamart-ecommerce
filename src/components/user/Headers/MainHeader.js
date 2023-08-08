@@ -8,7 +8,7 @@ export const MainHeader = () => {
     <div className="w-full h-14 bg-gray-100 px-1 sm:px-0 sticky top-0">
       <div className="container mx-auto flex w-full h-full items-center justify-between">
         <div className="">
-          <h1 className="text-2xl text-green-900 font-semibold">MegaMart</h1>
+          <Link to="/"><h1 className="text-2xl text-green-900 font-semibold">MegaMart</h1></Link>
         </div>
         <div className="flex items-center space-x-3">
           <form action="" className="hidden sm:block">
