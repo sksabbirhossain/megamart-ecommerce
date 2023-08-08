@@ -17,6 +17,7 @@ import { PublicRoute } from "./routes/admin/PublicRoute";
 import { UserLayout } from "./layouts/UserLayout";
 import { Home } from "./pages/User/Home/Home";
 import { ProductDetails } from "./pages/User/ProductDetails/ProductDetails";
+import { CheckOut } from "./pages/User/CheckOut/CheckOut";
 
 function App() {
   const adminAuthChecked = useAdminAuthChecked();
@@ -31,6 +32,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home/>} />
         <Route path="/product-details/:productId" element={<ProductDetails/>} />
+        <Route path="/checkout" element={<CheckOut/>} />
       </Route>
 
       <Route path="/admin" element={<AdminLayout/>}>
