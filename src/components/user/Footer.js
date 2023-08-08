@@ -9,7 +9,7 @@ import image from "../../images/playstore.png";
 
 export const Footer = () => {
   return (
-    <footer>
+    <footer className="px-2 sm:px-0">
       <div className="w-full h-auto bg-gray-100">
         <div className="container mx-auto py-4">
           <div className="grid gap-5  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
