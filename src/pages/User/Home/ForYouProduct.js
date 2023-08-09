@@ -12,7 +12,7 @@ export const ForYouProduct = () => {
   return (
     <div className="container mx-auto ">
       <ContainerHeader title="product for you!" />
-      <div className=" mb-7 grid gird-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-2 gap-y-5">
+      <div className=" mb-7 grid gird-cols-1 justify-center xs:justify-start xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-2 gap-y-5">
         {product?.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
