@@ -9,9 +9,9 @@ export const CheckOut = () => {
 
   return (
     <div className="container mx-auto my-7">
-      <div className="md:flex w-full md:space-x-6">
-        <div className="shadow-md rounded-md p-3 w-full">
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="md:grid md:grid-cols-5 md:gap-x-4">
+        <div className="shadow-md rounded-md p-3 w-full md:col-span-4">
+          <div class=" overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
@@ -178,7 +178,7 @@ export const CheckOut = () => {
             </table>
           </div>
         </div>
-        <div className="md:w-[600px] shadow-md rounded-md p-3">
+        <div className="shadow-md rounded-md p-3">
           <div className="shadow py-3 rounded-md px-1">
             <h3 className="text-xl"> Order Summary</h3>
           </div>
@@ -194,7 +194,9 @@ export const CheckOut = () => {
               <p>Total:</p> <p>$123</p>
             </div>
             <div className="flex justify-center mt-4">
-              <button className="px-6 py-2 rounded-md text-white bg-green-700">Order Now</button>
+              <button className="px-6 py-2 rounded-md text-white bg-green-700">
+                Order Now
+              </button>
             </div>
           </div>
         </div>
