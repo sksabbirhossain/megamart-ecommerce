@@ -3,14 +3,14 @@ import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export const ProductCard = ({ product }) => {
-  const { id, image, description, price, title, rating } = product || {};
-  console.log(rating);
+  const { _id, picture, description, price, name, rating } = product || {};
+
   return (
     <div className="max-w-[250px] h-[325px] border-gray-100 border rounded-md hover:shadow-lg duration-100 ease-linear">
-      <Link to={`/product-details/${id}`}>
+      <Link to={`/product-details/${_id}`}>
         <div className="pt-2">
           <img
-            src={image}
+            src={`${process.env.REACT_APP_BASE_URL}/uploads/${picture}`}
             alt="product"
             className="w-full h-36 object-contain"
           />
@@ -18,12 +18,14 @@ export const ProductCard = ({ product }) => {
       </Link>
       <div className="p-2 space-y-2">
         <div className="flex justify-between pt-2 font-semibold text-base">
-          <Link to={`/product-details/${id}`}>
-            <h3>{title.substring(1, 17)}</h3>
+          <Link to={`/product-details/${_id}`}>
+            <h3>{name?.substring(1, 17)}</h3>
           </Link>
           <p>${price}</p>
         </div>
-        <p className="font-normal text-sm">{description.substring(1, 45)}...</p>
+        <p className="font-normal text-sm">
+          {description?.substring(1, 45)}...
+        </p>
         <p className="flex items-center text-green-700">
           <FaStar />
           <FaStar />
