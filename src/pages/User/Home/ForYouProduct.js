@@ -1,4 +1,5 @@
 import React from "react";
+import { ProductCardSkeleton } from "../../../components/ui/ProductCardSkeleton";
 import { ContainerHeader } from "../../../components/user/ContainerHeader";
 import { ProductCard } from "../../../components/user/ProductCard";
 import { useGetProductsQuery } from "../../../features/product/productApi";
@@ -15,7 +16,13 @@ export const ForYouProduct = () => {
   let content;
 
   if (isLoading)
-    <p className="text-center uppercase font-medium">loading...</p>;
+    content = (
+      <>
+        <ProductCardSkeleton /> <ProductCardSkeleton /> <ProductCardSkeleton />
+        <ProductCardSkeleton /> <ProductCardSkeleton />
+      </>
+    );
+
   if (!isLoading && isError)
     content = (
       <h3 className=" uppercase font-medium text-red-600">
