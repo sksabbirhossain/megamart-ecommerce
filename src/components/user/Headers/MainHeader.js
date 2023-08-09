@@ -1,14 +1,24 @@
 import React from "react";
 import { AiOutlineShopping, AiOutlineUser } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { openCart } from "../../../features/cart/cartOpenSlice";
 
 export const MainHeader = () => {
+  const dispatch = useDispatch();
+
+  //cart open handler
+  const cartOpenHandler = () => {
+    dispatch(openCart(true));
+  };
   return (
     <div className="w-full h-14 bg-gray-100 px-1 sm:px-0 sticky top-0">
       <div className="container mx-auto flex w-full h-full items-center justify-between">
         <div className="">
-          <Link to="/"><h1 className="text-2xl text-green-900 font-semibold">MegaMart</h1></Link>
+          <Link to="/">
+            <h1 className="text-2xl text-green-900 font-semibold">MegaMart</h1>
+          </Link>
         </div>
         <div className="flex items-center space-x-3">
           <form action="" className="hidden sm:block">
@@ -37,7 +47,10 @@ export const MainHeader = () => {
           >
             <BsSearch />
           </button>
-          <p className="flex items-center cursor-pointer select-none">
+          <p
+            className="flex items-center cursor-pointer select-none"
+            onClick={cartOpenHandler}
+          >
             <span className="text-2xl text-green-800">
               <AiOutlineShopping />
             </span>
