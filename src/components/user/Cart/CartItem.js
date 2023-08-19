@@ -1,12 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeCart } from "../../../features/cart/addToCartSlice";
 
 export const CartItem = ({ item }) => {
   const { _id, name, picture, quantity, price } = item || {};
+  const dispatch = useDispatch();
 
   //remove cart item handler
   const removeCartItemHandler = (id) => {
-    alert(id);
+    dispatch(removeCart(id));
   };
   return (
     <div className="flex shadow-md p-1 mb-1">
