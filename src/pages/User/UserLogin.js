@@ -1,14 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineBug } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/common/Button/Button";
 import { Form } from "../../components/common/Form/Form";
 import { FormInput } from "../../components/common/FormInput/FormInput";
+import { useUserLoginMutation } from "../../features/auth/userAuthApi";
 import { setTitle } from "../../utils/setTitle";
+import { toast } from "react-hot-toast";
+import { Error } from "../../components/ui/Error";
 
 export const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const [userLoggedIn, { isLoading, isSuccess, error: resError }] =
+    useUserLoginMutation();
+
+  useEffect(() => {
+    if (!isLoading && isSuccess) {
+      toast.success("Login Successfull");
+      navigate("/");
+    }
+    if (!isLoading && !isSuccess && resError) {
+        setError(resError.data?.message);
+        console.log(resError)
+    }
+  }, [isLoading, isSuccess, navigate, resError]);
+
+  //user Login Handler
+  const userLoginHandler = (e) => {
+    e.preventDefault();
+    setError("");
+    userLoggedIn({ email, password });
+  };
 
   //set page title
   setTitle("User Login");
@@ -21,7 +48,7 @@ export const UserLogin = () => {
           </span>
           <h3 className="text-2xl font-semibold">Login Your Account</h3>
         </div>
-        <Form>
+        <Form onSubmit={userLoginHandler}>
           <FormInput
             label="Email"
             type="email"
@@ -42,7 +69,8 @@ export const UserLogin = () => {
           />
 
           <Button name="Login" className="w-full" />
-        </Form>
+              </Form>
+              {error !== "" && <Error error={error} />}
         <div className="mt-4 mb-3 text-center">
           <span>
             you don't have an account? please{" "}
