@@ -1,20 +1,39 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 import { AiOutlineShopping, AiOutlineUser } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
-import { FaBus, FaAccusoft } from "react-icons/fa";
+import { FaAccusoft, FaBus, FaSignOutAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  selectUserAccessToken,
+  selectUserInfo,
+} from "../../../features/auth/userAuthSelectors";
+import { userLoggedOut } from "../../../features/auth/userAuthSlice";
 import { openCart } from "../../../features/cart/cartOpenSlice";
 import { selectCartItems } from "../../../features/cart/cartSelectors";
 
 export const MainHeader = () => {
-  const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
+  const userAccessToken = useSelector(selectUserAccessToken);
+  const userInfo = useSelector(selectUserInfo);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //cart open handler
   const cartOpenHandler = () => {
     dispatch(openCart(true));
   };
+
+  //user logout hanlder
+  const logoutHandler = () => {
+    dispatch(userLoggedOut());
+    localStorage.removeItem("userAuth");
+    toast.success("User LogOut SuccessFull");
+    navigate("/login");
+  };
+
   return (
     <div className="w-full h-14 bg-gray-300 px-1 sm:px-0 sticky top-0 z-40">
       <div className="container mx-auto flex w-full h-full items-center justify-between space-x-3">
@@ -37,12 +56,24 @@ export const MainHeader = () => {
           </div>
         </form>
         <div className="flex items-center space-x-3">
-          <Link to="/login" className="hidden sm:flex items-center  ">
-            <span className="text-3xl text-green-800">
-              <AiOutlineUser />
-            </span>
-            <span className="text-base font-medium">Account</span>
-          </Link>
+          {userAccessToken && userInfo?._id ? (
+            <p
+              className="cursor-pointer select-none flex"
+              onClick={logoutHandler}
+            >
+              <span className="text-2xl text-green-800">
+                <FaSignOutAlt />
+              </span>
+              <span className="text-base font-medium">LogOut</span>
+            </p>
+          ) : (
+            <Link to="/login" className="hidden sm:flex items-center  ">
+              <span className="text-3xl text-green-800">
+                <AiOutlineUser />
+              </span>
+              <span className="text-base font-medium">Account</span>
+            </Link>
+          )}
           <Link to="/checkout" className="hidden sm:flex items-center  ">
             <span className="text-3xl text-green-800">
               <FaAccusoft />
