@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineShopping, AiOutlineUser } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
-import { FaBus } from "react-icons/fa";
+import { FaBus, FaAccusoft } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { openCart } from "../../../features/cart/cartOpenSlice";
@@ -43,8 +43,13 @@ export const MainHeader = () => {
             </span>
             <span className="text-base font-medium">Account</span>
           </Link>
-
-          <Link to="/login" className="hidden sm:flex items-center  ">
+          <Link to="/checkout" className="hidden sm:flex items-center  ">
+            <span className="text-3xl text-green-800">
+              <FaAccusoft />
+            </span>
+            <span className="text-base font-medium">CheckOut</span>
+          </Link>
+          <Link to="/my-oder" className="hidden sm:flex items-center  ">
             <span className="text-2xl text-green-800">
               <FaBus />
             </span>
@@ -64,7 +69,7 @@ export const MainHeader = () => {
             <span className="text-3xl text-green-800 absolute">
               <AiOutlineShopping />
             </span>
-            <p className="relative left-3 bottom-3 w-6 h-6 flex items-center justify-center bg-green-800 text-white rounded-full">
+            <p className="relative left-3 bottom-3 w-5 h-5 flex items-center justify-center bg-green-800 text-white rounded-full">
               <span>{cartItems.length > 0 ? cartItems.length : "0"}</span>
             </p>
             <span className="text-base font-medium ml-2">Cart</span>

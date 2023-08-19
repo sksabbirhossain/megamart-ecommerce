@@ -13,9 +13,9 @@ export const CartItem = ({ item }) => {
   };
   return (
     <div className="flex shadow-md p-1 mb-1">
-      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
         <img
-          src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg"
+          src={`${process.env.REACT_APP_BASE_URL}/uploads/${picture}`}
           alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
           className="h-full w-full object-cover object-center"
         />
@@ -25,7 +25,7 @@ export const CartItem = ({ item }) => {
         <div>
           <div className="flex justify-between text-base font-medium text-gray-900">
             <h3>
-              <Link to="/">{name}</Link>
+              <Link to="/">{name?.substring(0, 25)}</Link>
             </h3>
             <p className="ml-4">${price}</p>
           </div>

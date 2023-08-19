@@ -11,13 +11,11 @@ export const Cart = () => {
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
 
-  
-
   //deside
   let content;
-  if (cartItems?.length === 0) content = <p>Cart Is Empty!</p>;
+  if (cartItems?.length === 0) content = <>Cart Is Empty!</>;
   if (cartItems?.length > 0)
-    content = cartItems?.map((item) => <CartItem item={item} />);
+    content = cartItems?.map((item) => <CartItem key={item._id} item={item} />);
 
   return (
     <div
