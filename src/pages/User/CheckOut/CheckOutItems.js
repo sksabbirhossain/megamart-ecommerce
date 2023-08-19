@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeCart } from "../../../features/cart/addToCartSlice";
+import { decreaseQty, increaseQty, removeCart } from "../../../features/cart/addToCartSlice";
 
 export const CheckOutItems = ({ item }) => {
   const { _id, name, picture, quantity, price } = item || {};
@@ -9,6 +9,15 @@ export const CheckOutItems = ({ item }) => {
   //remove cart item handler
   const removeCartItemHandler = (id) => {
     dispatch(removeCart(id));
+  };
+  //increase product qty
+  const increaseProductQtyHandler = (id) => {
+    dispatch(increaseQty({ id, data: quantity + 1 }));
+  };
+
+  //decrease product qty
+  const decreaseProductQtyHandler = (id) => {
+    dispatch(decreaseQty({ id, data: quantity - 1 }));
   };
 
   return (
@@ -32,17 +41,21 @@ export const CheckOutItems = ({ item }) => {
           <button
             disabled={quantity <= 1}
             className="bg-green-900 text-white py-1 px-3"
+            onClick={() => decreaseProductQtyHandler(_id)}
           >
             {" "}
             -{" "}
           </button>
-          <input
-            type="text"
-            name="quantity"
-            value={quantity}
-            className=" w-10 bg-transparent text-gray-100 font-normal text-2xl text-center focus:outline-none"
-          />
-          <button className="bg-green-900 text-white py-1 px-3"> + </button>
+          <span className=" w-10 bg-transparent text-gray-100 font-normal text-2xl text-center focus:outline-none">
+            {quantity}
+          </span>
+          <button
+            className="bg-green-900 text-white py-1 px-3"
+            onClick={() => increaseProductQtyHandler(_id)}
+          >
+            {" "}
+            +{" "}
+          </button>
         </div>
       </td>
       <td className="px-6 py-4">${price * quantity}</td>
