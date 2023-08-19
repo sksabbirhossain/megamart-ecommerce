@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectCartItems } from "../../../features/cart/cartSelectors";
 import { setTitle } from "../../../utils/setTitle";
 import { CheckOutItems } from "./CheckOutItems";
+import { CheckOutTotal } from "./CheckOutTotal";
 
 export const CheckOut = () => {
   const cartItems = useSelector(selectCartItems);
@@ -15,6 +16,8 @@ export const CheckOut = () => {
       <CheckOutItems key={item._id} item={item} />
     ));
 
+  
+  
   //set page title
   setTitle("CheckOut");
 
@@ -50,28 +53,7 @@ export const CheckOut = () => {
             </table>
           </div>
         </div>
-        <div className="shadow-md rounded-md p-3">
-          <div className="shadow py-3 rounded-md px-1">
-            <h3 className="text-xl"> Order Summary</h3>
-          </div>
-          <div className="px-1 py-2">
-            <div className="flex justify-between py-2">
-              <p>subtotal:</p> <p>$1234</p>
-            </div>
-            <div className="flex justify-between py-2">
-              <p>Dalevary Charge:</p> <p>$0</p>
-            </div>
-
-            <div className="flex justify-between py-2">
-              <p>Total:</p> <p>$123</p>
-            </div>
-            <div className="flex justify-center mt-4">
-              <button className="px-6 py-2 rounded-md text-white bg-green-700">
-                Order Now
-              </button>
-            </div>
-          </div>
-        </div>
+        <CheckOutTotal/>
       </div>
     </div>
   );

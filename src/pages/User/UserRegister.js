@@ -1,12 +1,12 @@
 import React from "react";
 import { AiOutlineBug } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { Button } from "../components/common/Button/Button";
-import { Form } from "../components/common/Form/Form";
-import { FormInput } from "../components/common/FormInput/FormInput";
-import { setTitle } from "../utils/setTitle";
+import { Button } from "../../components/common/Button/Button";
+import { Form } from "../../components/common/Form/Form";
+import { FormInput } from "../../components/common/FormInput/FormInput";
+import { setTitle } from "../../utils/setTitle";
 
-export const Register = () => {
+export const UserRegister = () => {
   //set page title
   setTitle("Register User");
   return (
@@ -49,7 +49,7 @@ export const Register = () => {
         <div className="mt-4 mb-3 text-center">
           <span>
             you have an account? please{" "}
-            <Link to="/" className="text-[#28a745] font-normal">
+            <Link to="/login" className="text-[#28a745] font-normal">
               Login here.
             </Link>
           </span>

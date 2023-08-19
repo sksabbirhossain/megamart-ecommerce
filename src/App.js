@@ -11,13 +11,14 @@ import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { AddProduct } from "./pages/Product/AddProduct";
 import { AllProducts } from "./pages/Product/AllProducts";
-import { Register } from "./pages/Register";
 import { PrivateRoute } from "./routes/admin/PrivateRoute";
 import { PublicRoute } from "./routes/admin/PublicRoute";
 import { UserLayout } from "./layouts/UserLayout";
 import { Home } from "./pages/User/Home/Home";
 import { ProductDetails } from "./pages/User/ProductDetails/ProductDetails";
 import { CheckOut } from "./pages/User/CheckOut/CheckOut";
+import { UserLogin } from "./pages/User/UserLogin";
+import { UserRegister } from "./pages/User/UserRegister";
 
 function App() {
   const adminAuthChecked = useAdminAuthChecked();
@@ -29,7 +30,8 @@ function App() {
       <Route path="/admin" element={<PublicRoute><Login /></PublicRoute>} />
 
       <Route path="/" element={<UserLayout/>}>
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<UserRegister />} />
+        <Route path="/login" element={<UserLogin />} />
         <Route path="/" element={<Home/>} />
         <Route path="/product-details/:productId" element={<ProductDetails/>} />
         <Route path="/checkout" element={<CheckOut/>} />
