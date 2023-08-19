@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineBug } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/common/Button/Button";
@@ -7,6 +7,10 @@ import { FormInput } from "../../components/common/FormInput/FormInput";
 import { setTitle } from "../../utils/setTitle";
 
 export const UserRegister = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   //set page title
   setTitle("Register User");
   return (
@@ -24,24 +28,36 @@ export const UserRegister = () => {
             type="text"
             name="name"
             placeholder="your name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <FormInput
             label="Email"
             type="email"
             name="email"
             placeholder="your email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <FormInput
             label="Password"
             type="password"
             name="password"
             placeholder="your password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormInput
             label="Confirm Password"
             type="password"
             name="confirmPassword"
             placeholder="your confirm password"
+            required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
           <Button name="Register" className="w-full" />
