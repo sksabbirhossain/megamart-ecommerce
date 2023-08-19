@@ -11,7 +11,7 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     adminAuth: authSliceReducer,
     cartOpen: cartOpenSliceReducer,
-    cartitems: addToCartSliceReducer,
+    cartItems: addToCartSliceReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
