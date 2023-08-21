@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { selectCartItems } from "../../../features/cart/cartSelectors";
 
 export const CheckOutTotal = () => {
@@ -36,9 +37,11 @@ export const CheckOutTotal = () => {
           </p>
         </div>
         <div className="flex justify-center mt-4">
-          <button className="px-6 py-2 rounded-md text-white bg-green-700">
-            Order Now
-          </button>
+          <Link to="/order">
+            <button className="px-6 py-2 rounded-md text-white bg-green-700">
+              Order Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>

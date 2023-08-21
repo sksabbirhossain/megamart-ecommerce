@@ -15,6 +15,7 @@ import { AddProduct } from "./pages/Product/AddProduct";
 import { AllProducts } from "./pages/Product/AllProducts";
 import { CheckOut } from "./pages/User/CheckOut/CheckOut";
 import { Home } from "./pages/User/Home/Home";
+import { Order } from "./pages/User/Order/Order";
 import { ProductDetails } from "./pages/User/ProductDetails/ProductDetails";
 import { UserLogin } from "./pages/User/UserLogin";
 import { UserRegister } from "./pages/User/UserRegister";
@@ -42,6 +43,7 @@ function App() {
         }
       />
 
+      {/* user routes */}
       <Route path="/" element={<UserLayout />}>
         <Route path="/register" element={<UserRegister />} />
         <Route path="/login" element={<UserLogin />} />
@@ -51,8 +53,10 @@ function App() {
           element={<ProductDetails />}
         />
         <Route path="/checkout" element={<CheckOut />} />
+        <Route path="order" element={<Order />} />
       </Route>
 
+      {/* admin routes */}
       <Route path="/admin" element={<AdminLayout />}>
         <Route
           path="/admin/dashboard"
