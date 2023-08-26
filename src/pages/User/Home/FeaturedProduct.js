@@ -2,7 +2,7 @@ import React from "react";
 import { ProductCardSkeleton } from "../../../components/ui/ProductCardSkeleton";
 import { ContainerHeader } from "../../../components/user/ContainerHeader";
 import { ProductCard } from "../../../components/user/ProductCard";
-import { useGetProductsQuery } from "../../../features/product/productApi";
+import { useGetFeatureProductsQuery } from "../../../features/product/productApi";
 
 export const FeaturedProduct = () => {
   const {
@@ -10,7 +10,7 @@ export const FeaturedProduct = () => {
     isLoading,
     isSuccess,
     isError,
-  } = useGetProductsQuery();
+  } = useGetFeatureProductsQuery();
 
   // decide what to render
   let content;

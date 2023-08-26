@@ -1,9 +1,5 @@
-import {
-  CardElement,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
-import React, { useState } from "react";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../../components/common/Button/Button";
 import { Form } from "../../../components/common/Form/Form";
 import { FormInput } from "../../../components/common/FormInput/FormInput";
@@ -17,35 +13,69 @@ export const PaymentCkeckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    fetch("http://localhost:5000/api/payment/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: [{ id: "xl-tshirt" }], amount: 10 }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));  
+  }, []);
+
+  console.log(clientSecret);
+
   const handleSubmit = async (event) => {
     // Block native form submission.
     event.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
       return;
     }
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
     const card = elements.getElement(CardElement);
 
     if (card == null) {
       return;
     }
 
-    // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card,
-    });
+    try {
+      const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: "card",
+        card,
+      });
 
-    if (error) {
-      console.log("[error]", error);
-    } else {
-      console.log("[PaymentMethod]", paymentMethod);
+      if (error) {
+        console.error("[error]", error);
+        // Display an error message to the user
+      } else {
+        console.log("[PaymentMethod]", paymentMethod);
+
+        // Now confirm the payment using the clientSecret
+        const { paymentIntent, error: confirmError } =
+          await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+              card: card,
+              billing_details: {
+                name: "sabbir",
+              },
+            },
+          });
+
+        if (confirmError) {
+          console.error("[confirmError]", confirmError);
+          // Display an error message to the user
+        } else {
+          console.log("[paymentIntent]", paymentIntent);
+          // Payment successful, you can redirect or show a success message
+        }
+      }
+    } catch (err) {
+      console.error("An unexpected error occurred:", err);
+      // Display a general error message to the user
     }
   };
 
