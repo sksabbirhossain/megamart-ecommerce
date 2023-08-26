@@ -4,6 +4,8 @@ import { RelatedProduct } from "./RelatedProduct";
 
 export const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
+
+  
   //set ppage title
   setTitle("Product Details");
   return (
