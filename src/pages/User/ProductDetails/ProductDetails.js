@@ -1,11 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { ProductDetailsSkeleton } from "../../../components/ui/ProductDetailsSkeleton";
+import { addToCart } from "../../../features/cart/addToCartSlice";
+import { useGetProductQuery } from "../../../features/product/productApi";
 import { setTitle } from "../../../utils/setTitle";
 import { RelatedProduct } from "./RelatedProduct";
 
 export const ProductDetails = () => {
-  const [quantity, setQuantity] = useState(1);
+  const { productId } = useParams();
+  const dispatch = useDispatch();
 
-  
+  const {
+    data: product,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useGetProductQuery(productId);
+
+  if (isLoading)
+    return (
+      <>
+        <ProductDetailsSkeleton />
+      </>
+    );
+
+  if (!isLoading && isError)
+    return (
+      <h3 className=" uppercase font-medium text-red-600">
+        something went wrong!
+      </h3>
+    );
+
+  if (!isError && !isLoading && isSuccess && product?.length === 0)
+    return (
+      <p className="text-center uppercase font-medium">No Product found!</p>
+    );
+
+  const {  name, picture, price, category, description } = product || {};
+
+  const categoryId = category?._id;
+
+  //add to cart
+  const addToCartHandler = (item) => {
+    dispatch(addToCart(item));
+    toast.success("Product Add To Cart");
+  };
+
   //set ppage title
   setTitle("Product Details");
   return (
@@ -13,61 +55,50 @@ export const ProductDetails = () => {
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div className="">
           <img
-            src="https://media.istockphoto.com/id/1175355990/photo/stylish-blue-headphones-on-multi-colored-duo-tone-background-lighting.jpg?s=612x612&w=0&k=20&c=KV7myS20KOzfgRk8CYFSq0y31Sgcu2MLP5zCH1MpLYI="
+            src={`${process.env.REACT_APP_BASE_URL}/uploads/${picture}`}
             alt="product"
             className="rounded-md"
           />
         </div>
         <div className="space-y-3">
-          <h1 className="text-xl font-medium">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique,
-            repellendus?
-          </h1>
-          <p className="text-sm">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum,
-            voluptas! Consequuntur, labore! In nobis fugiat tempore nemo
-            laborum, at earum? Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Incidunt, ipsum, qui eaque velit totam est dolore
-            voluptates excepturi beatae sequi atque accusantium aperiam tenetur
-            eligendi aut laudantium suscipit? Quos, est.
-          </p>
+          <h1 className="text-xl font-medium">{name}</h1>
+          <p className="text-sm">{description}</p>
           <p className="font-medium text-green-600">start</p>
           <div className="flex justify-between items-center">
-            <p className="font-medium">Price: $100</p>
-            <div className="flex items-center">
+            <p className="font-medium">Price: ${price}</p>
+            {/* <div className="flex items-center">
               <p className="font-medium">Quantity:</p>
-              <div className="flex bg-green-600 ml-3 rounded-md overflow-hidden">
+              <div className="flex bg-green-700 rounded-md overflow-hidden">
                 <button
-                  disabled={quantity <= 1}
+                  disabled={qty <= 1}
                   className="bg-green-900 text-white py-1 px-3"
-                  onClick={() => setQuantity((pre) => pre - 1)}
+                  onClick={() => decreaseProductQtyHandler(_id)}
                 >
                   {" "}
                   -{" "}
                 </button>
-                <input
-                  type="number"
-                  name="quantity"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  className=" w-14 bg-transparent text-gray-100 font-normal text-2xl text-center focus:outline-none"
-                />
+                <span className=" w-10 bg-transparent text-gray-100 font-normal text-2xl text-center focus:outline-none">
+                  {qty}
+                </span>
                 <button
                   className="bg-green-900 text-white py-1 px-3"
-                  onClick={() => setQuantity((pre) => pre + 1)}
+                  onClick={() => increaseProductQtyHandler(_id)}
                 >
                   {" "}
                   +{" "}
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
-          <button className="py-2 px-5 bg-green-800 text-white rounded-md hover:bg-green-600 duration-100 ease-linear">
+          <button
+            className="py-2 px-5 bg-green-800 text-white rounded-md hover:bg-green-600 duration-100 ease-linear"
+            onClick={() => addToCartHandler(product)}
+          >
             Add To Cart
           </button>
         </div>
       </div>
-      <RelatedProduct />
+      <RelatedProduct categoryId={categoryId} />
     </div>
   );
 };

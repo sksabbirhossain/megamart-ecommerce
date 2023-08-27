@@ -34,6 +34,7 @@ export const FeaturedProduct = () => {
     content = (
       <p className="text-center uppercase font-medium">No Product found!</p>
     );
+
   if (!isError && !isLoading && products?.length > 0)
     content = products.map((proudct) => (
       <ProductCard key={proudct._id} product={proudct} />
