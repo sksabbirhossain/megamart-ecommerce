@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../features/cart/addToCartSlice";
 import createSlug from "../../utils/createSlug";
+import { toast } from "react-hot-toast";
 
 export const ProductCard = ({ product }) => {
   const { _id, picture, description, price, name, rating } = product || {};
@@ -16,6 +17,7 @@ export const ProductCard = ({ product }) => {
   //add to cart
   const addToCartHandler = (item) => {
     dispatch(addToCart(item));
+    toast.success("Product Add To Cart")
   };
 
   return (

@@ -4,7 +4,12 @@ export const productApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => ({
-        url: "/product/all",
+        url: "/product/all?limit=10",
+      }),
+    }),
+    getMoreProducts: builder.query({
+      query: ({ page, limit }) => ({
+        url: `/product/all?page=${page}&&limit=${limit}`,
       }),
     }),
     getFeatureProducts: builder.query({
@@ -118,6 +123,7 @@ export const productApi = apiSlice.injectEndpoints({
 
 export const {
   useGetProductsQuery,
+  useGetMoreProductsQuery,
   useGetFeatureProductsQuery,
   useGetProductQuery,
   useGetProductByCategoryQuery,

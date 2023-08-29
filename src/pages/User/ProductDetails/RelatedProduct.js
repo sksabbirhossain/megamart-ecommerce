@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { ProductCardSkeleton } from "../../../components/ui/ProductCardSkeleton";
 import { ContainerHeader } from "../../../components/user/ContainerHeader";
 import { ProductCard } from "../../../components/user/ProductCard";
@@ -11,6 +12,8 @@ export const RelatedProduct = ({ categoryId }) => {
     isSuccess,
     isError,
   } = useGetProductByCategoryQuery(categoryId);
+
+  const { productId } = useParams();
 
   let content;
   if (isLoading)
@@ -33,9 +36,9 @@ export const RelatedProduct = ({ categoryId }) => {
     );
 
   if (!isError && !isLoading && isSuccess && products?.length > 0)
-    content = products?.map((product) => (
-      <ProductCard key={product.id} product={product} />
-    ));
+    content = products
+      ?.filter((product) => product._id !== productId)
+      ?.map((product) => <ProductCard key={product.id} product={product} />);
 
   return (
     <div>

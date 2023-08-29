@@ -35,22 +35,22 @@ export const MainHeader = () => {
   };
 
   return (
-    <div className="w-full h-14 bg-gray-300 px-1 sm:px-0 sticky top-0 z-40">
+    <div className="w-full h-14 bg-green-900 text-gray-300  px-1 sm:px-0 sticky top-0 z-40">
       <div className="container mx-auto flex w-full h-full items-center justify-between space-x-3">
         <div className="md:min-w-[300px]">
           <Link to="/">
-            <h1 className="text-2xl text-green-900 font-semibold">MegaMart</h1>
+            <h1 className="text-2xl text-white font-semibold">MegaMart</h1>
           </Link>
         </div>
         <form className="hidden sm:block sm:w-full">
-          <div className="flex items-center bg-gray-200 rounded-md ring-1 ring-green-600/50">
+          <div className="flex items-center  bg-emerald-900 rounded-md ring-1 ring-emerald-800">
             <input
               type="search"
               name="search"
               placeholder="Search Product..."
               className="bg-transparent px-2 py-2 focus:outline-none   sm:w-full"
             />
-            <button type="submit" className="pr-2 text-lg text-green-900">
+            <button type="submit" className="pr-2 text-lg text-gray-100">
               <BsSearch />
             </button>
           </div>
@@ -61,27 +61,27 @@ export const MainHeader = () => {
               className="cursor-pointer select-none flex"
               onClick={logoutHandler}
             >
-              <span className="text-2xl text-green-800">
+              <span className="text-2xl text-white ">
                 <FaSignOutAlt />
               </span>
-              <span className="text-base font-medium">LogOut</span>
+              <span className="text-base font-medium ">LogOut</span>
             </p>
           ) : (
             <Link to="/login" className="hidden sm:flex items-center  ">
-              <span className="text-3xl text-green-800">
+              <span className="text-3xl text-white ">
                 <AiOutlineUser />
               </span>
-              <span className="text-base font-medium">Account</span>
+              <span className="text-base font-medium ">Account</span>
             </Link>
           )}
           <Link to="/checkout" className="hidden sm:flex items-center  ">
-            <span className="text-3xl text-green-800">
+            <span className="text-3xl text-white ">
               <FaAccusoft />
             </span>
             <span className="text-base font-medium">CheckOut</span>
           </Link>
           <Link to="/my-oder" className="hidden sm:flex items-center  ">
-            <span className="text-2xl text-green-800">
+            <span className="text-2xl text-white ">
               <FaBus />
             </span>
             <span className="text-base ml-1 font-medium">Oder</span>
@@ -89,7 +89,7 @@ export const MainHeader = () => {
           {/* search icon for small devices */}
           <button
             type="submit"
-            className="pr-2 text-lg text-green-900 block sm:hidden"
+            className="pr-2 text-lg text-white block sm:hidden"
           >
             <BsSearch />
           </button>
@@ -97,10 +97,10 @@ export const MainHeader = () => {
             className="flex items-center cursor-pointer select-none"
             onClick={cartOpenHandler}
           >
-            <span className="text-3xl text-green-800 absolute">
+            <span className="text-3xl text-white  absolute">
               <AiOutlineShopping />
             </span>
-            <p className="relative left-3 bottom-3 w-5 h-5 flex items-center justify-center bg-green-800 text-white rounded-full">
+            <p className="relative left-3 bottom-3 w-5 h-5 flex items-center justify-center bg-red-800 text-white rounded-full">
               <span>{cartItems.length > 0 ? cartItems.length : "0"}</span>
             </p>
             <span className="text-base font-medium ml-2">Cart</span>
