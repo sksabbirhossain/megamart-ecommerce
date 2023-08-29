@@ -8,9 +8,21 @@ export const productApi = apiSlice.injectEndpoints({
       }),
     }),
     getMoreProducts: builder.query({
-      query: ({ page, limit }) => ({
-        url: `/product/all?page=${page}&&limit=${limit}`,
+      query: (page) => ({
+        url: `/product/all?page=${page}&&limit=${process.env.REACT_APP_LIMIT_PER_PAGE}`,
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const {data} = await queryFulfilled;
+          dispatch(
+            apiSlice.util.updateQueryData("getProducts", undefined, (draft) => {
+              draft.data = [...draft.data, ...data.data];
+              draft.totalItems = data.totalItems;
+              return draft;
+            })
+          );
+        } catch (err) {}
+      },
     }),
     getFeatureProducts: builder.query({
       query: () => ({
