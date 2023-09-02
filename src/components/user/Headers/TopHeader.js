@@ -7,7 +7,7 @@ import {
 
 export const TopHeader = () => {
   return (
-    <div className="w-full h-6 bg-green-950 text-white/70 text-sm">
+    <div className="w-full h-6 bg-orange-600 text-white/70 text-sm">
       <div className="container mx-auto flex h-full items-center justify-center sm:justify-between ">
         <p className="hidden sm:block">Welcome to worldwide MegaMart!</p>
         <div className="flex space-x-2 ">

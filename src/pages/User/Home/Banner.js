@@ -17,7 +17,7 @@ export const Banner = () => {
         dynamicBullets: true,
       }}
       modules={[Pagination, Autoplay, EffectFade]}
-      className="mySwiper h-96"
+      className="mySwiper h-96 w-auto mt-5 container mx-auto rounded-md"
       loop={true}
       effect={"fade"}
       autoplay={{

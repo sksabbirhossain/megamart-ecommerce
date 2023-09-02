@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch } from "react-redux";
-import { ProductCardSkeleton } from "../../../components/ui/ProductCardSkeleton";
 import { ProductLoading } from "../../../components/ui/ProductLoading";
 import { ContainerHeader } from "../../../components/user/ContainerHeader";
 import { ProductCard } from "../../../components/user/ProductCard";
@@ -45,17 +44,11 @@ export const ForYouProduct = () => {
   // decide what to render
   let content;
 
-  if (isLoading)
-    content = (
-      <div className=" mb-7 grid gird-cols-1 justify-center xs:justify-start xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-2 gap-y-5">
-        <ProductCardSkeleton /> <ProductCardSkeleton /> <ProductCardSkeleton />
-        <ProductCardSkeleton /> <ProductCardSkeleton />
-      </div>
-    );
+  if (isLoading) content = <ProductLoading />;
 
   if (!isLoading && isError)
     content = (
-      <h3 className=" uppercase font-medium text-red-600">
+      <h3 className=" uppercase container font-medium text-red-600">
         something went wrong!
       </h3>
     );

@@ -21,6 +21,7 @@ import { UserLogin } from "./pages/User/UserLogin";
 import { UserRegister } from "./pages/User/UserRegister";
 import { PrivateRoute } from "./routes/admin/PrivateRoute";
 import { PublicRoute } from "./routes/admin/PublicRoute";
+import { Search } from "./pages/User/Search/Search";
 
 function App() {
   const adminAuthChecked = useAdminAuthChecked();
@@ -53,7 +54,8 @@ function App() {
           element={<ProductDetails />}
         />
         <Route path="/checkout" element={<CheckOut />} />
-        <Route path="order" element={<Order />} />
+        <Route path="/order" element={<Order />} />
+        <Route path="/search" element={<Search />} />
       </Route>
 
       {/* admin routes */}

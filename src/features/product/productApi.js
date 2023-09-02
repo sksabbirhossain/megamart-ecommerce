@@ -4,7 +4,7 @@ export const productApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => ({
-        url: "/product/all?limit=10",
+        url: `/product/all?page=1&&limit=${process.env.REACT_APP_LIMIT_PER_PAGE}`,
       }),
     }),
     getMoreProducts: builder.query({
@@ -13,7 +13,7 @@ export const productApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
-          const {data} = await queryFulfilled;
+          const { data } = await queryFulfilled;
           dispatch(
             apiSlice.util.updateQueryData("getProducts", undefined, (draft) => {
               draft.data = [...draft.data, ...data.data];
@@ -50,7 +50,7 @@ export const productApi = apiSlice.injectEndpoints({
           const { data } = await queryFulfilled;
           dispatch(
             apiSlice.util.updateQueryData("getProducts", undefined, (draft) => {
-              draft?.push(data);
+              draft?.data.push(data);
             })
           );
         } catch (err) {}
@@ -69,10 +69,10 @@ export const productApi = apiSlice.injectEndpoints({
           // pessimistic updates getProducts cache
           dispatch(
             apiSlice.util.updateQueryData("getProducts", undefined, (draft) => {
-              const productIndex = draft?.findIndex(
+              const productIndex = draft?.data.findIndex(
                 (product) => product?._id === data._id
               );
-              draft[productIndex] = data;
+              draft.data[productIndex] = data;
             })
           );
 
@@ -98,10 +98,10 @@ export const productApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         const result = dispatch(
           productApi.util.updateQueryData("getProducts", undefined, (draft) => {
-            const productIndex = draft?.findIndex(
+            const productIndex = draft?.data.findIndex(
               (product) => product._id === arg.productId
             );
-            draft[productIndex].status = arg.data.status;
+            draft.data[productIndex].status = arg.data.status;
           })
         );
         try {
@@ -119,8 +119,11 @@ export const productApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         const result = dispatch(
           apiSlice.util.updateQueryData("getProducts", undefined, (draft) => {
-            const products = draft?.filter((product) => product?._id !== arg);
-            return products;
+            const products = draft?.data.filter(
+              (product) => product?._id !== arg
+            );
+            draft.data = products;
+            return draft;
           })
         );
         try {
@@ -129,6 +132,11 @@ export const productApi = apiSlice.injectEndpoints({
           result.undo();
         }
       },
+    }),
+    searchProduct: builder.query({
+      query: (data) => ({
+        url: `/product/search?search=${data}`,
+      }),
     }),
   }),
 });
@@ -143,4 +151,5 @@ export const {
   useUpdateProductMutation,
   useUpdateProductStatusMutation,
   useDeleteProductMutation,
+  useSearchProductQuery,
 } = productApi;

@@ -6,12 +6,9 @@ import { setTitle } from "../../utils/setTitle";
 import { ProductTable } from "./ProductTable";
 
 export const AllProducts = () => {
-  const {
-    data: products,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useGetProductsQuery();
+  const { data, isLoading, isSuccess, isError } = useGetProductsQuery() || {};
+
+  const { data: products } = data || {};
 
   // decide what to render
   let content;
@@ -39,7 +36,7 @@ export const AllProducts = () => {
       <Heading title="All Products" />
       <div className="flex justify-end shadow-sm py-2 rounded-md">
         <Link
-          to="/add-product"
+          to="/admin/add-product"
           className=" bg-green-600 px-2 mr-1 py-1 uppercase rounded-md text-gray-50 font-normal"
         >
           Add Product

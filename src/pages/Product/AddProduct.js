@@ -48,7 +48,7 @@ export const AddProduct = () => {
     setError("");
     if (!resLoading && isSuccess) {
       toast.success("Product Added SuccessFull");
-      return navigate("/all-products");
+      return navigate("/admin/all-products");
     }
     if (resError?.error) {
       setError(resError.error);
@@ -77,7 +77,7 @@ export const AddProduct = () => {
       <Heading title="Add Product" />
       <div className="flex justify-end shadow-sm py-2 rounded-md">
         <Link
-          to="/all-products"
+          to="/admin/all-products"
           className=" bg-green-600 px-2 mr-1 py-1 uppercase rounded-md text-gray-50 font-normal"
         >
           All Products

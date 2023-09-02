@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiOutlineShopping, AiOutlineUser } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
-import { FaAccusoft, FaBus, FaSignOutAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -17,6 +16,7 @@ export const MainHeader = () => {
   const cartItems = useSelector(selectCartItems);
   const userAccessToken = useSelector(selectUserAccessToken);
   const userInfo = useSelector(selectUserInfo);
+  const [searchValue, setSearchValue] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,58 +34,106 @@ export const MainHeader = () => {
     navigate("/login");
   };
 
+  //search product handler
+  const searchHeandler = (e) => {
+    e.preventDefault();
+    if (searchValue !== "") {
+      navigate(`/search?search=${searchValue}`);
+    }
+  };
+
+  console.log(userInfo);
+
   return (
-    <div className="w-full h-14 bg-green-900 text-gray-300  px-1 sm:px-0 sticky top-0 z-40">
+    <div className="w-full h-14 bg-[#f85606] text-gray-100  px-1 sm:px-0 sticky top-0 z-40 shadow-md shadow-gray-400 ">
       <div className="container mx-auto flex w-full h-full items-center justify-between space-x-3">
-        <div className="md:min-w-[300px]">
+        {/* logo area */}
+        <div className="xl:min-w-[300px]">
           <Link to="/">
             <h1 className="text-2xl text-white font-semibold">MegaMart</h1>
           </Link>
         </div>
-        <form className="hidden sm:block sm:w-full">
-          <div className="flex items-center  bg-emerald-900 rounded-md ring-1 ring-emerald-800">
+        {/* search bar */}
+        <form className="hidden sm:block sm:w-full" onSubmit={searchHeandler}>
+          <div className="flex items-center  bg-gray-200 rounded-md ring-1 ring-emerald-800">
             <input
               type="search"
               name="search"
+              value={searchValue}
               placeholder="Search Product..."
-              className="bg-transparent px-2 py-2 focus:outline-none   sm:w-full"
+              className="bg-transparent px-2 py-2 focus:outline-none sm:w-full"
+              onChange={(e) => setSearchValue(e.target.value)}
             />
-            <button type="submit" className="pr-2 text-lg text-gray-100">
+            <button type="submit" className="pr-3 text-lg text-[#f85606]">
               <BsSearch />
             </button>
           </div>
         </form>
+
+        {/* right side */}
         <div className="flex items-center space-x-3">
           {userAccessToken && userInfo?._id ? (
-            <p
-              className="cursor-pointer select-none flex"
-              onClick={logoutHandler}
-            >
-              <span className="text-2xl text-white ">
-                <FaSignOutAlt />
-              </span>
-              <span className="text-base font-medium ">LogOut</span>
-            </p>
+            <>
+              <div className=" flex items-center space-x-2">
+                <div className="w-7 h-7 ">
+                  <img
+                    src={
+                      userInfo?.profilePic !== null
+                        ? userInfo.profilePic
+                        : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                    }
+                    alt="profile"
+                    className="w-full h-full rounded-full"
+                  />
+                </div>
+                <div className="whitespace-nowrap leading-4">
+                  <p className="text-[12px]">
+                    Hello,{userInfo.name.substring(0, 9)}
+                  </p>
+                  <p
+                    className="text-[13px] font-semibold capitalize hover:underline cursor-pointer select-none"
+                    onClick={logoutHandler}
+                  >
+                    Logout account
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                to="/checkout"
+                className="hidden sm:flex items-center hover:bg-orange-700/50 p-2 rounded-md ease-out duration-100"
+              >
+                {/* <span className="text-3xl text-white ">
+           <FaAccusoft />
+         </span> */}
+                <span className="text-base font-medium mr-0 sm:mr-3">
+                  CheckOut
+                </span>
+              </Link>
+            </>
           ) : (
-            <Link to="/login" className="hidden sm:flex items-center  ">
-              <span className="text-3xl text-white ">
-                <AiOutlineUser />
-              </span>
-              <span className="text-base font-medium ">Account</span>
-            </Link>
+            <div className="hidden sm:flex items-center">
+              <Link
+                to="/login"
+                className="flex hover:bg-orange-700/50 p-2 rounded-md ease-out duration-100"
+              >
+                <span className="text-2xl text-white pr-1">
+                  <AiOutlineUser />
+                </span>
+                <span className="text-base font-medium">Login</span>
+              </Link>
+              <span className="px-1"> |</span>
+              <Link
+                to="/register"
+                className=" hover:bg-orange-700/50 p-2 rounded-md ease-out duration-100"
+              >
+                <span className="text-base font-medium whitespace-nowrap">
+                  Sign Up
+                </span>
+              </Link>
+            </div>
           )}
-          <Link to="/checkout" className="hidden sm:flex items-center  ">
-            <span className="text-3xl text-white ">
-              <FaAccusoft />
-            </span>
-            <span className="text-base font-medium">CheckOut</span>
-          </Link>
-          <Link to="/my-oder" className="hidden sm:flex items-center  ">
-            <span className="text-2xl text-white ">
-              <FaBus />
-            </span>
-            <span className="text-base ml-1 font-medium">Oder</span>
-          </Link>
+
           {/* search icon for small devices */}
           <button
             type="submit"
@@ -93,18 +141,19 @@ export const MainHeader = () => {
           >
             <BsSearch />
           </button>
-          <p
-            className="flex items-center cursor-pointer select-none"
+
+          {/* cart */}
+          <div
+            className="flex items-center justify-center cursor-pointer"
             onClick={cartOpenHandler}
           >
-            <span className="text-3xl text-white  absolute">
+            <span className="text-4xl text-white sm:pb-1 absolute">
               <AiOutlineShopping />
             </span>
-            <p className="relative left-3 bottom-3 w-5 h-5 flex items-center justify-center bg-red-800 text-white rounded-full">
+            <p className="relative left-2 bottom-4 w-5 h-5 flex items-center justify-center bg-gray-800 text-white rounded-full">
               <span>{cartItems.length > 0 ? cartItems.length : "0"}</span>
             </p>
-            <span className="text-base font-medium ml-2">Cart</span>
-          </p>
+          </div>
         </div>
       </div>
     </div>
