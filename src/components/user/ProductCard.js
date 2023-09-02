@@ -1,13 +1,15 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../features/cart/addToCartSlice";
 import createSlug from "../../utils/createSlug";
-import { toast } from "react-hot-toast";
 
 export const ProductCard = ({ product }) => {
-  const { _id, picture, description, price, name, rating } = product || {};
+  const { _id, picture, description, price, name } = product || {};
+
+  const rating = 5;
 
   const dispatch = useDispatch();
 
@@ -17,11 +19,11 @@ export const ProductCard = ({ product }) => {
   //add to cart
   const addToCartHandler = (item) => {
     dispatch(addToCart(item));
-    toast.success("Product Add To Cart")
+    toast.success("Product Add To Cart");
   };
 
   return (
-    <div className="max-w-[250px] h-[325px] border-gray-100 border rounded-md hover:shadow-lg duration-100 ease-linear">
+    <div className="md:max-w-[250px] h-[325px] border-gray-100 border rounded-md hover:shadow-lg duration-100 ease-linear">
       <Link to={`/product-details/${productSlug}/${_id}`}>
         <div className="pt-2">
           <img
@@ -41,18 +43,18 @@ export const ProductCard = ({ product }) => {
         <p className="font-normal text-sm">
           {description?.substring(1, 45)}...
         </p>
-        <p className="flex items-center text-green-700">
-          <FaStar />
-          <FaStar />
-          <FaStar />
-          <FaStar />
-          <FaStar />
-          <FaStar />
-          <span className="text-slate-800 text-sm ml-1">({rating?.count})</span>
+        <p className="flex items-center text-orange-600">
+          {Array(rating)
+            .fill()
+            .map((i) => (
+              <FaStar />
+            ))}
+
+          <span className="text-gray-500 text-sm font-thin ml-1">({rating})</span>
         </p>
         <div>
           <button
-            className="bg-green-900 duration-100 ease-linear hover:bg-green-700 text-white/80 w-full rounded-md py-1"
+            className="bg-white duration-200 ease-linear hover:bg-orange-600 text-orange-600 hover:text-white border border-orange-600 w-full rounded-md py-1"
             onClick={() => addToCartHandler(product)}
           >
             Add To Cart

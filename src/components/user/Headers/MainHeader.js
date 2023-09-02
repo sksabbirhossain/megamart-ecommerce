@@ -61,7 +61,7 @@ export const MainHeader = () => {
               name="search"
               value={searchValue}
               placeholder="Search Product..."
-              className="bg-transparent px-2 py-2 focus:outline-none sm:w-full"
+              className="bg-transparent text-black px-2 py-2 focus:outline-none sm:w-full"
               onChange={(e) => setSearchValue(e.target.value)}
             />
             <button type="submit" className="pr-3 text-lg text-[#f85606]">
