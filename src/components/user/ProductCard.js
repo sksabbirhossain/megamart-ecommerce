@@ -23,7 +23,7 @@ export const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="md:max-w-[250px] h-[325px] border-gray-100 border rounded-md hover:shadow-lg duration-100 ease-linear">
+    <div className="md:max-w-[250px] h-[325px] bg-white/80 border-gray-100 border rounded-md hover:shadow-lg duration-100 ease-linear">
       <Link to={`/product-details/${productSlug}/${_id}`}>
         <div className="pt-2">
           <img
@@ -50,7 +50,9 @@ export const ProductCard = ({ product }) => {
               <FaStar />
             ))}
 
-          <span className="text-gray-500 text-sm font-thin ml-1">({rating})</span>
+          <span className="text-gray-500 text-sm font-thin ml-1">
+            ({rating})
+          </span>
         </p>
         <div>
           <button
