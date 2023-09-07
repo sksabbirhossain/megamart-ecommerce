@@ -35,7 +35,21 @@ export const userAuthApi = apiSlice.injectEndpoints({
         } catch (err) {}
       },
     }),
+    userLoggedIn: builder.query({
+      query: () => ({
+        url: "/user/me",
+        headers: {
+          Authorization: `Bearer ${
+            localStorage.getItem("userAuth")?.accessToken
+          }`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useUserRegisterMutation, useUserLoginMutation } = userAuthApi;
+export const {
+  useUserRegisterMutation,
+  useUserLoginMutation,
+  useUserLoggedInQuery,
+} = userAuthApi;

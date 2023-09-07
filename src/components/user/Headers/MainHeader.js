@@ -42,8 +42,6 @@ export const MainHeader = () => {
     }
   };
 
-  console.log(userInfo);
-
   return (
     <div className="w-full h-14 bg-[#f85606] text-gray-100  px-1 sm:px-0 sticky top-0 z-40 shadow-md shadow-gray-400 ">
       <div className="container mx-auto flex w-full h-full items-center justify-between space-x-3">

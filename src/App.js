@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+import { adminLoggedOut } from "./features/auth/authSlice";
+import { useUserLoggedInQuery } from "./features/auth/userAuthApi";
+import { userLoggedOut } from "./features/auth/userAuthSlice";
 import { useAdminAuthChecked } from "./hooks/useAdminAuthChecked";
 import { useUserAuthChecked } from "./hooks/userUserAuthChecked";
 import { AdminLayout } from "./layouts/AdminLayout";
@@ -17,15 +21,18 @@ import { CheckOut } from "./pages/User/CheckOut/CheckOut";
 import { Home } from "./pages/User/Home/Home";
 import { Order } from "./pages/User/Order/Order";
 import { ProductDetails } from "./pages/User/ProductDetails/ProductDetails";
+import { Search } from "./pages/User/Search/Search";
 import { UserLogin } from "./pages/User/UserLogin";
 import { UserRegister } from "./pages/User/UserRegister";
 import { PrivateRoute } from "./routes/admin/PrivateRoute";
 import { PublicRoute } from "./routes/admin/PublicRoute";
-import { Search } from "./pages/User/Search/Search";
 
 function App() {
   const adminAuthChecked = useAdminAuthChecked();
   const userAuthChecked = useUserAuthChecked();
+  const dispatch = useDispatch();
+
+  const {} = useUserLoggedInQuery();
 
   if (!userAuthChecked) {
     return <p className="relative top-1/2 left-1/2">Loading...</p>;
@@ -33,6 +40,7 @@ function App() {
   if (!adminAuthChecked) {
     return <p>Loading...</p>;
   }
+
   return (
     <Routes>
       <Route
