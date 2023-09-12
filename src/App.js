@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { useUserLoggedInQuery } from "./features/auth/userAuthApi";
 import { useAdminAuthChecked } from "./hooks/useAdminAuthChecked";
@@ -19,7 +18,7 @@ import { CheckOut } from "./pages/User/CheckOut/CheckOut";
 import { Home } from "./pages/User/Home/Home";
 import { Order } from "./pages/User/Order/Order";
 import { ProductDetails } from "./pages/User/ProductDetails/ProductDetails";
-import { MyOrder } from "./pages/User/Profile/MyOrder";
+import { MyOrder } from "./pages/User/Profile/MyOrder/MyOrder";
 import { Search } from "./pages/User/Search/Search";
 import { UserLogin } from "./pages/User/UserLogin";
 import { UserRegister } from "./pages/User/UserRegister";
@@ -27,11 +26,11 @@ import { PrivateRoute } from "./routes/admin/PrivateRoute";
 import { PublicRoute } from "./routes/admin/PublicRoute";
 import { UserPrivateRoute } from "./routes/user/UserPrivateRoute";
 import { UserPublicRoute } from "./routes/user/UserPublicRoute";
+import { AllOrder } from "./pages/Order/AllOrder";
 
 function App() {
   const adminAuthChecked = useAdminAuthChecked();
   const userAuthChecked = useUserAuthChecked();
-  const dispatch = useDispatch();
 
   const {} = useUserLoggedInQuery();
 
@@ -155,6 +154,14 @@ function App() {
           element={
             <PrivateRoute>
               <AddProduct />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <PrivateRoute>
+              <AllOrder />
             </PrivateRoute>
           }
         />
