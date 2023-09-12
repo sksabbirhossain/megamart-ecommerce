@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { adminLoggedOut } from "./features/auth/authSlice";
 import { useUserLoggedInQuery } from "./features/auth/userAuthApi";
-import { userLoggedOut } from "./features/auth/userAuthSlice";
 import { useAdminAuthChecked } from "./hooks/useAdminAuthChecked";
 import { useUserAuthChecked } from "./hooks/userUserAuthChecked";
 import { AdminLayout } from "./layouts/AdminLayout";
@@ -21,11 +19,14 @@ import { CheckOut } from "./pages/User/CheckOut/CheckOut";
 import { Home } from "./pages/User/Home/Home";
 import { Order } from "./pages/User/Order/Order";
 import { ProductDetails } from "./pages/User/ProductDetails/ProductDetails";
+import { MyOrder } from "./pages/User/Profile/MyOrder";
 import { Search } from "./pages/User/Search/Search";
 import { UserLogin } from "./pages/User/UserLogin";
 import { UserRegister } from "./pages/User/UserRegister";
 import { PrivateRoute } from "./routes/admin/PrivateRoute";
 import { PublicRoute } from "./routes/admin/PublicRoute";
+import { UserPrivateRoute } from "./routes/user/UserPrivateRoute";
+import { UserPublicRoute } from "./routes/user/UserPublicRoute";
 
 function App() {
   const adminAuthChecked = useAdminAuthChecked();
@@ -54,16 +55,49 @@ function App() {
 
       {/* user routes */}
       <Route path="/" element={<UserLayout />}>
-        <Route path="/register" element={<UserRegister />} />
-        <Route path="/login" element={<UserLogin />} />
+        {/* login and register routes */}
+        <Route
+          path="/register"
+          element={
+            <UserPublicRoute>
+              <UserRegister />
+            </UserPublicRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <UserPublicRoute>
+              <UserLogin />
+            </UserPublicRoute>
+          }
+        />
+
         <Route path="/" element={<Home />} />
         <Route
           path="/product-details/:slug/:productId"
           element={<ProductDetails />}
         />
         <Route path="/checkout" element={<CheckOut />} />
-        <Route path="/order" element={<Order />} />
         <Route path="/search" element={<Search />} />
+
+        {/* user private routes */}
+        <Route
+          path="/order"
+          element={
+            <UserPrivateRoute>
+              <Order />
+            </UserPrivateRoute>
+          }
+        />
+        <Route
+          path="/my-order"
+          element={
+            <UserPrivateRoute>
+              <MyOrder />
+            </UserPrivateRoute>
+          }
+        />
       </Route>
 
       {/* admin routes */}
