@@ -1,11 +1,20 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React from "react";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../../components/common/Button/Button";
 import { Form } from "../../../components/common/Form/Form";
+import { selectUserInfo } from "../../../features/auth/userAuthSelectors";
+import { selectCartItems } from "../../../features/cart/cartSelectors";
 
 export const PaymentCkeckoutForm = ({ shippingInfo }) => {
+  const cartItems = useSelector(selectCartItems);
+  const user = useSelector(selectUserInfo);
   const stripe = useStripe();
   const elements = useElements();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     // Block native form submission.
@@ -31,13 +40,16 @@ export const PaymentCkeckoutForm = ({ shippingInfo }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ token, shippingInfo }),
+          body: JSON.stringify({ token, shippingInfo, cartItems, user }),
         }
       );
       // Handle the server response here
-
-      console.log(response);
-      alert("success");
+      if (response.status === 200) {
+        toast.success("Payment SuccessFull");
+        navigate("/my-order");
+      } else {
+        toast.error("Payment Field, Please Try Again");
+      }
     }
   };
 
@@ -46,7 +58,12 @@ export const PaymentCkeckoutForm = ({ shippingInfo }) => {
       <div className="">
         <h2 className="text-2xl pb-4">Payment Details</h2>
         <CardElement />
-        <Button type="submit" name="Pay Now" />
+        <Button
+          type="submit"
+          name="Pay Now"
+          className="mt-5"
+          disabled={!stripe}
+        />
       </div>
     </Form>
   );

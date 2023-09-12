@@ -19,7 +19,7 @@ export const Order = () => {
     address,
   };
   return (
-    <div className="container mx-auto my-5 flex justify-center px-2 sm:px-0">
+    <div className="container mx-auto my-5 flex justify-center gap-5 mt-10 sm:px-0">
       <Form>
         <h2 className="text-2xl pb-4">Shpping Details</h2>
         <FormInput

@@ -4,6 +4,7 @@ import { ProductCardSkeleton } from "../../../components/ui/ProductCardSkeleton"
 import { ContainerHeader } from "../../../components/user/ContainerHeader";
 import { ProductCard } from "../../../components/user/ProductCard";
 import { useSearchProductQuery } from "../../../features/product/productApi";
+import { setTitle } from "../../../utils/setTitle";
 
 export const Search = () => {
   const [searchParams] = useSearchParams();
@@ -40,6 +41,9 @@ export const Search = () => {
     content = products.map((proudct) => (
       <ProductCard key={proudct._id} product={proudct} />
     ));
+
+  //set page title
+  setTitle(`${searchKey} - Search `);
 
   return (
     <div className="container mx-auto ">
