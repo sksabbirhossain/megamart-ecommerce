@@ -9,7 +9,7 @@ import { Subscribe } from "./Subscribe";
 
 export const Home = () => {
   //set page title
-  setTitle("Home");
+  setTitle("Online Shopping");
   return (
     <>
       <Banner />

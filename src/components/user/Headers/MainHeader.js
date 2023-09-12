@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { toast } from "react-hot-toast";
 import { AiOutlineShopping, AiOutlineUser } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +7,9 @@ import {
   selectUserAccessToken,
   selectUserInfo,
 } from "../../../features/auth/userAuthSelectors";
-import { userLoggedOut } from "../../../features/auth/userAuthSlice";
 import { openCart } from "../../../features/cart/cartOpenSlice";
 import { selectCartItems } from "../../../features/cart/cartSelectors";
+import { Menu } from "./Menu";
 
 export const MainHeader = () => {
   const cartItems = useSelector(selectCartItems);
@@ -24,14 +23,6 @@ export const MainHeader = () => {
   //cart open handler
   const cartOpenHandler = () => {
     dispatch(openCart(true));
-  };
-
-  //user logout hanlder
-  const logoutHandler = () => {
-    dispatch(userLoggedOut());
-    localStorage.removeItem("userAuth");
-    toast.success("User LogOut SuccessFull");
-    navigate("/login");
   };
 
   //search product handler
@@ -69,10 +60,10 @@ export const MainHeader = () => {
         </form>
 
         {/* right side */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 relative">
           {userAccessToken && userInfo?._id ? (
             <>
-              <div className=" flex items-center space-x-2">
+              <div className=" flex items-center space-x-2 group hover:cursor-pointer">
                 <div className="w-7 h-7 ">
                   <img
                     src={
@@ -88,22 +79,18 @@ export const MainHeader = () => {
                   <p className="text-[12px]">
                     Hello,{userInfo.name.substring(0, 9)}
                   </p>
-                  <p
-                    className="text-[13px] font-semibold capitalize hover:underline cursor-pointer select-none"
-                    onClick={logoutHandler}
-                  >
-                    Logout account
+                  <p className="text-[13px] font-semibold capitalize select-none">
+                    Orders & Accout
                   </p>
                 </div>
+                {/* user account menu */}
+                <Menu />
               </div>
 
               <Link
                 to="/checkout"
                 className="hidden sm:flex items-center hover:bg-orange-700/50 p-2 rounded-md ease-out duration-100"
               >
-                {/* <span className="text-3xl text-white ">
-           <FaAccusoft />
-         </span> */}
                 <span className="text-base font-medium mr-0 sm:mr-3">
                   CheckOut
                 </span>

@@ -5,12 +5,16 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../components/common/Button/Button";
 import { Form } from "../../../components/common/Form/Form";
-import { selectUserInfo } from "../../../features/auth/userAuthSelectors";
+import {
+  selectUserAccessToken,
+  selectUserInfo,
+} from "../../../features/auth/userAuthSelectors";
 import { selectCartItems } from "../../../features/cart/cartSelectors";
 
 export const PaymentCkeckoutForm = ({ shippingInfo }) => {
   const cartItems = useSelector(selectCartItems);
   const user = useSelector(selectUserInfo);
+  const accessToken = useSelector(selectUserAccessToken);
   const stripe = useStripe();
   const elements = useElements();
 
@@ -39,6 +43,7 @@ export const PaymentCkeckoutForm = ({ shippingInfo }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({ token, shippingInfo, cartItems, user }),
         }
