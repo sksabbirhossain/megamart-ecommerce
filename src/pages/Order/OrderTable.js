@@ -1,8 +1,19 @@
-import React, { useState } from "react";
-import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useUpdateOrderStatusMutation } from "../../features/order/orderApi";
 
 export const OrderTable = ({ orders }) => {
+  const [updateOrderStatus] = useUpdateOrderStatusMutation();
+
+  //update order status
+  const updateOrderHandler = (id, status) => {
+    updateOrderStatus({
+      orderId: id,
+      data: {
+        status: status,
+      },
+    });
+  };
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -35,7 +46,7 @@ export const OrderTable = ({ orders }) => {
                 {/* Order row */}
                 <tr className="bg-gray-200">
                   <th className="px-6 py-3 ">
-                    <span className="capitalize"> transaction Id : </span>
+                    <span className="capitalize"> transaction Id :</span>
                     {order.transactionId}
                   </th>
                   <td className="px-6 py-3 capitalize"></td>
@@ -44,10 +55,18 @@ export const OrderTable = ({ orders }) => {
                   </td>
                   <td className="px-6 py-3 capitalize">{order.stock}</td>
                   <td className="px-6 py-3 cursor-pointer">
-                    <select name="orderStatus" id="">
-                      <option value=""> {order.oderStatus}</option>
-                      <option value=""></option>
-                      <option value=""></option>
+                    <select
+                      disabled={order.oderStatus === "completed"}
+                      name="orderStatus"
+                      defaultValue={order.oderStatus}
+                      onChange={(e) => {
+                        updateOrderHandler(order._id, e.target.value);
+                      }}
+                    >
+                      {/* <option value="">{order.oderStatus}</option> */}
+                      <option value="processing">processing</option>
+                      <option value="delivered">delivered</option>
+                      <option value="completed">completed</option>
                     </select>
                   </td>
                   <td className="px-6 py-3 sm:space-x-2 space-x-1">
