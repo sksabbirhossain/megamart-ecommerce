@@ -172,6 +172,7 @@ function App() {
         />
       </Route>
       <Route path="/*" element={<NotFound />} />
+      <Route path="/admin/*" element={<NotFound />} />
     </Routes>
   );
 }
