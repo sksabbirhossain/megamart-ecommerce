@@ -29,9 +29,11 @@ export const BestCategory = () => {
       <p className="text-center uppercase font-medium">No Product found!</p>
     );
   if (!isError && !isLoading && categories?.length > 0)
-    content = categories.map((category) => (
-      <CategoryCard key={category._id} category={category} />
-    ));
+    content = categories
+      .slice(0, 10)
+      .map((category) => (
+        <CategoryCard key={category._id} category={category} />
+      ));
 
   return (
     <div className="container mx-auto ">

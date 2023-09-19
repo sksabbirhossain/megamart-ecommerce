@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const CategoryCard = ({ category }) => {
-  const { name, picture } = category || {};
+  const { _id, name, picture } = category || {}; 
+  
   return (
-    <Link to="">
+    <Link to={`/${name}/${_id}`}>
       <div className="max-w-[250px] w-full text-center shadow-md border rounded-md p-3 hover:bg-gray-100 hover:text-orange-600 duration-100 ease-linear">
         <img
           src={`${process.env.REACT_APP_BASE_URL}/uploads/${picture}`}

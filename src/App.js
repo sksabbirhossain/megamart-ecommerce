@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { ProductByCategory } from "./components/user/ProductByCategory";
 import { useUserLoggedInQuery } from "./features/auth/userAuthApi";
 import { useAdminAuthChecked } from "./hooks/useAdminAuthChecked";
 import { useUserAuthChecked } from "./hooks/userUserAuthChecked";
@@ -12,6 +13,7 @@ import { AllCategories } from "./pages/Category/AllCategories";
 import { Dashboard } from "./pages/Dashboard";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
+import { AllOrder } from "./pages/Order/AllOrder";
 import { AddProduct } from "./pages/Product/AddProduct";
 import { AllProducts } from "./pages/Product/AllProducts";
 import { CheckOut } from "./pages/User/CheckOut/CheckOut";
@@ -26,13 +28,12 @@ import { PrivateRoute } from "./routes/admin/PrivateRoute";
 import { PublicRoute } from "./routes/admin/PublicRoute";
 import { UserPrivateRoute } from "./routes/user/UserPrivateRoute";
 import { UserPublicRoute } from "./routes/user/UserPublicRoute";
-import { AllOrder } from "./pages/Order/AllOrder";
 
 function App() {
   const adminAuthChecked = useAdminAuthChecked();
   const userAuthChecked = useUserAuthChecked();
 
-  const {} = useUserLoggedInQuery();
+  useUserLoggedInQuery();
 
   if (!userAuthChecked) {
     return <p className="relative top-1/2 left-1/2">Loading...</p>;
@@ -76,6 +77,10 @@ function App() {
         <Route
           path="/product-details/:slug/:productId"
           element={<ProductDetails />}
+        />
+        <Route
+          path="/:categoryName/:categoryId"
+          element={<ProductByCategory />}
         />
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/search" element={<Search />} />
