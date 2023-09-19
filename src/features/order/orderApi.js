@@ -7,6 +7,11 @@ export const orderApi = apiSlice.injectEndpoints({
         url: "/order/all",
       }),
     }),
+    getUserOrder: builder.query({
+      query: (userId) => ({
+        url: `order/user-order/${userId}`,
+      }),
+    }),
     updateOrderStatus: builder.mutation({
       query: ({ orderId, data }) => ({
         url: `/order/update-status/${orderId}`,
@@ -19,7 +24,7 @@ export const orderApi = apiSlice.injectEndpoints({
             const orderIndex = draft?.findIndex(
               (order) => order._id === arg.orderId
             );
-            draft[orderIndex].oderStatus = arg.data.status;
+            draft[orderIndex].orderStatus = arg.data.status;
           })
         );
         try {
@@ -32,4 +37,4 @@ export const orderApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetAllOrderQuery, useUpdateOrderStatusMutation } = orderApi;
+export const { useGetAllOrderQuery,useGetUserOrderQuery, useUpdateOrderStatusMutation } = orderApi;

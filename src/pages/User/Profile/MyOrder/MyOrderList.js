@@ -1,38 +1,74 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-export const MyOrderList = () => {
+export const MyOrderList = ({ orders }) => {
   return (
-    <div className=" shadow-md rounded-md  py-2 px-4">
-      <h1 className="font-semibold py-2">
-        TrId: <span className="text-orange-600">43534543</span>
-      </h1>
-      <div className="flex justify-between gap-5">
-        <div className="">
-          <img
-            src="http://localhost:5000/api/uploads/d2020h-01-500x500-1692378880168.webp"
-            alt=""
-            className="w-11 h-11 rounded-full ring-2 p-1"
-          />
-        </div>
-        <div>
-          <h1 className="max-w-[500px]">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
-            accusamus nihil, temporibus aliquid distinctio
-          </h1>
-        </div>
-        <div className="">
-          <span>Quantity: 1</span>
-        </div>
-        <div>
-          <span className="bg-green-600 text-gray-800 p-1 rounded-md">
-            completed
-          </span>
-        </div>
-        <div className="">
-          <span>12 jan 2024</span>
-        </div>
+    <>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left text-gray-500">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-100">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                Picture
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Price
+              </th>
+              <th scope="col" className="px-6 py-3">
+                quantity
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders?.map((order) => (
+              <React.Fragment key={order._id}>
+                {/* Order row */}
+                <tr className="bg-gray-200">
+                  <th className="px-6 py-3 ">
+                    <span className="capitalize"> transaction Id :</span>
+                    {order.transactionId}
+                  </th>
+                  <td className="px-6 py-3 capitalize"></td>
+                  <td className="px-6 py-3 capitalize">
+                    Total Amount: ${order.totalAmount}
+                  </td>
+                  <td className="px-6 py-3 capitalize">{order.stock}</td>
+                  <td className="px-6 py-3 cursor-pointer">
+                    {order.orderStatus}
+                  </td>
+                </tr>
+
+                {/* Items rows */}
+                {order?.items?.map((item) => (
+                  <tr className="bg-white border-b">
+                    <th
+                      scope="row"
+                      className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap"
+                    >
+                      <img
+                        src={`${process.env.REACT_APP_BASE_URL}/uploads/${item.picture}`}
+                        alt="brand"
+                        className="w-11 h-11 rounded-full ring-2 ring-green-700 p-1"
+                      />
+                    </th>
+                    <td className="px-6 py-3 capitalize">{item.name}</td>
+                    <td className="px-6 py-3 capitalize">${item.price}</td>
+                    <td className="px-6 py-3 capitalize">
+                      Qty: {item.quantity}
+                    </td>
+                    <td className="px-6 py-3 cursor-pointer"></td>
+                  </tr>
+                ))}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </div>
+    </>
   );
 };

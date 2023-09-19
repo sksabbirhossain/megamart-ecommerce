@@ -56,14 +56,13 @@ export const OrderTable = ({ orders }) => {
                   <td className="px-6 py-3 capitalize">{order.stock}</td>
                   <td className="px-6 py-3 cursor-pointer">
                     <select
-                      disabled={order.oderStatus === "completed"}
+                      disabled={order.orderStatus === "completed"}
                       name="orderStatus"
-                      defaultValue={order.oderStatus}
+                      defaultValue={order.orderStatus}
                       onChange={(e) => {
                         updateOrderHandler(order._id, e.target.value);
                       }}
                     >
-                      {/* <option value="">{order.oderStatus}</option> */}
                       <option value="processing">processing</option>
                       <option value="delivered">delivered</option>
                       <option value="completed">completed</option>
