@@ -38,7 +38,7 @@ export const PaymentCkeckoutForm = ({ shippingInfo }) => {
     } else {
       // Send the token to your server for payment processing and saving the shipping info
       const response = await fetch(
-        "http://localhost:5000/api/payment/create-payment-intent",
+        `${process.env.REACT_APP_BASE_URL}/payment/create-payment-intent`,
         {
           method: "POST",
           headers: {
