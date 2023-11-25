@@ -107,7 +107,7 @@ If you have any suggestions on what to improve this website, please make a issue
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute it as per the terms of the license.
+This project is licensed under the [MIT License](LICENSE.md). Feel free to use, modify, and distribute it as per the terms of the license.
 
 Enjoy your shopping experience with my MegaMart E-commerce website! If you have any questions or encounter any issues, please create a issue or [contact me](https://www.linkedin.com/in/sk-sabbir-hossain/).
 
