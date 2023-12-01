@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Heading } from "../../components/common/Heading/Heading";
-import { useGetProductsQuery } from "../../features/product/productApi";
-import { setTitle } from "../../utils/setTitle";
+import { Heading } from "../../../components/common/Heading/Heading";
+import { useGetProductsQuery } from "../../../features/product/productApi";
+import { setTitle } from "../../../utils/setTitle";
 import { ProductTable } from "./ProductTable";
 
 export const AllProducts = () => {

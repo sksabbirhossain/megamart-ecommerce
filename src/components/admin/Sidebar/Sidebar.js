@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { adminLoggedOut } from "../../features/auth/authSlice";
+import { adminLoggedOut } from "../../../features/auth/authSlice";
 
 export const Sidebar = () => {
   const [brandDropDown, setBrandDropDown] = useState(false);

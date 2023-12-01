@@ -27,7 +27,7 @@ export const ProductCard = ({ product }) => {
       <Link to={`/product-details/${productSlug}/${_id}`}>
         <div className="pt-2">
           <img
-            src={`${process.env.REACT_APP_BASE_URL}/uploads/${picture}`}
+            src={picture}
             alt="product"
             className="w-full h-36 object-contain"
           />

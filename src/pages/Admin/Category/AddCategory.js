@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../../components/common/Button/Button";
-import { Form } from "../../components/common/Form/Form";
-import { FormInput } from "../../components/common/FormInput/FormInput";
-import { SelectBox } from "../../components/common/FormInput/SelectBox";
-import { Heading } from "../../components/common/Heading/Heading";
-import { Error } from "../../components/ui/Error";
-import { useGetAllBrandsQuery } from "../../features/brand/brandApi";
-import { useAddCategoryMutation } from "../../features/category/categoryApi";
+import { Button } from "../../../components/common/Button/Button";
+import { Form } from "../../../components/common/Form/Form";
+import { FormInput } from "../../../components/common/FormInput/FormInput";
+import { SelectBox } from "../../../components/common/FormInput/SelectBox";
+import { Heading } from "../../../components/common/Heading/Heading";
+import { Error } from "../../../components/ui/Error";
+import { useGetAllBrandsQuery } from "../../../features/brand/brandApi";
+import { useAddCategoryMutation } from "../../../features/category/categoryApi";
 
 export const AddCategory = () => {
   const [name, setName] = useState("");
@@ -26,7 +26,7 @@ export const AddCategory = () => {
     setError("");
     if (!resLoading && !isLoading && isSuccess) {
       toast.success("Category Added SuccessFull");
-      return navigate("/all-categories");
+      return navigate("/admin/all-categories");
     }
     if (resError?.error) {
       setError(resError.error);
@@ -51,7 +51,7 @@ export const AddCategory = () => {
       <Heading title="Add Category" />
       <div className="flex justify-end shadow-sm py-2 rounded-md">
         <Link
-          to="/all-categories"
+          to="/admin/all-categories"
           className=" bg-green-600 px-2 mr-1 py-1 uppercase rounded-md text-gray-50 font-normal"
         >
           All Categories
@@ -93,7 +93,12 @@ export const AddCategory = () => {
                   </option>
                 ))}
             </SelectBox>
-            <Button name="Add" className="w-full" />
+            
+            <Button
+              name={resLoading ? "loading.." : "Add Product"}
+              className="w-full"
+              disabled={resLoading}
+            />
           </Form>
           {error !== "" && <Error error={error} />}
         </div>

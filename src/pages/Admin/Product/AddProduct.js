@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../../components/common/Button/Button";
-import { Form } from "../../components/common/Form/Form";
-import { FormInput } from "../../components/common/FormInput/FormInput";
-import { SelectBox } from "../../components/common/FormInput/SelectBox";
-import { Textarea } from "../../components/common/FormInput/Textarea";
-import { Heading } from "../../components/common/Heading/Heading";
-import { Error } from "../../components/ui/Error";
-import { useGetAllBrandsQuery } from "../../features/brand/brandApi";
-import { useGetCategoriesByBrandQuery } from "../../features/category/categoryApi";
-import { useAddProductMutation } from "../../features/product/productApi";
+import { Button } from "../../../components/common/Button/Button";
+import { Form } from "../../../components/common/Form/Form";
+import { FormInput } from "../../../components/common/FormInput/FormInput";
+import { SelectBox } from "../../../components/common/FormInput/SelectBox";
+import { Textarea } from "../../../components/common/FormInput/Textarea";
+import { Heading } from "../../../components/common/Heading/Heading";
+import { Error } from "../../../components/ui/Error";
+import { useGetAllBrandsQuery } from "../../../features/brand/brandApi";
+import { useGetCategoriesByBrandQuery } from "../../../features/category/categoryApi";
+import { useAddProductMutation } from "../../../features/product/productApi";
+import { setTitle } from "../../../utils/setTitle";
 
 export const AddProduct = () => {
   const [name, setName] = useState("");
@@ -71,6 +72,9 @@ export const AddProduct = () => {
     formData.append("category", category);
     addProduct(formData);
   };
+
+  //set page title
+  setTitle("Add a new product");
 
   return (
     <section>
@@ -170,7 +174,11 @@ export const AddProduct = () => {
                   onChange={(e) => setDescription(e.target.value)}
                 />
 
-                <Button name="Add Product" className="w-full" />
+                <Button
+                  name={resLoading ? "loading.." : "Add Product"}
+                  className="w-full"
+                  disabled={resLoading}
+                />
               </div>
             </div>
           </Form>

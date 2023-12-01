@@ -4,7 +4,7 @@ import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import {
   useDeleteBrandMutation,
   useUpdateStatusMutation,
-} from "../../features/brand/brandApi";
+} from "../../../features/brand/brandApi";
 import { UpdateModal } from "./UpdateModal";
 
 export const BrandTable = ({ brands }) => {
@@ -67,7 +67,7 @@ export const BrandTable = ({ brands }) => {
                     className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap"
                   >
                     <img
-                      src={`${process.env.REACT_APP_BASE_URL}/uploads/${picture}`}
+                      src={picture}
                       alt="brand"
                       className="w-11 h-11 rounded-full ring-2 ring-green-700 p-1"
                     />

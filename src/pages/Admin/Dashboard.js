@@ -1,6 +1,6 @@
 import React from "react";
-import { Heading } from "../components/common/Heading/Heading";
-import { setTitle } from "../utils/setTitle";
+import { Heading } from "../../components/common/Heading/Heading";
+import { setTitle } from "../../utils/setTitle";
 
 export const Dashboard = () => {
   //set page title

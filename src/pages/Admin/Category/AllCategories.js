@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Heading } from "../../components/common/Heading/Heading";
-import { setTitle } from "../../utils/setTitle";
-import { useGetCategoriesQuery } from "../../features/category/categoryApi";
+import { Heading } from "../../../components/common/Heading/Heading";
+import { setTitle } from "../../../utils/setTitle";
+import { useGetCategoriesQuery } from "../../../features/category/categoryApi";
 import { CategoriesTable } from "./CategoriesTable";
 
 export const AllCategories = () => {
@@ -41,7 +41,7 @@ export const AllCategories = () => {
       <Heading title="All Categories" />
       <div className="flex justify-end shadow-sm py-2 rounded-md">
         <Link
-          to="/add-category"
+          to="/admin/add-category"
           className=" bg-green-600 px-2 mr-1 py-1 uppercase rounded-md text-gray-50 font-normal"
         >
           Add Category

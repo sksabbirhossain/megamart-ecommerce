@@ -1,7 +1,7 @@
 import React from "react";
-import { Heading } from "../../components/common/Heading/Heading";
-import { useGetAllOrderQuery } from "../../features/order/orderApi";
-import { setTitle } from "../../utils/setTitle";
+import { Heading } from "../../../components/common/Heading/Heading";
+import { useGetAllOrderQuery } from "../../../features/order/orderApi";
+import { setTitle } from "../../../utils/setTitle";
 import { OrderTable } from "./OrderTable";
 
 export const AllOrder = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useUpdateOrderStatusMutation } from "../../features/order/orderApi";
+import { useUpdateOrderStatusMutation } from "../../../features/order/orderApi";
 
 export const OrderTable = ({ orders }) => {
   const [updateOrderStatus] = useUpdateOrderStatusMutation();

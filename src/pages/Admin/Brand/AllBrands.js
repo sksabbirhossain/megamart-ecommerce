@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Heading } from "../../components/common/Heading/Heading";
-import { useGetAllBrandsQuery } from "../../features/brand/brandApi";
-import { setTitle } from "../../utils/setTitle";
+import { Heading } from "../../../components/common/Heading/Heading";
+import { useGetAllBrandsQuery } from "../../../features/brand/brandApi";
+import { setTitle } from "../../../utils/setTitle";
 import { BrandTable } from "./BrandTable";
 
 export const AllBrands = () => {
@@ -40,7 +40,7 @@ export const AllBrands = () => {
       <Heading title="All Brands" />
       <div className="flex justify-end shadow-sm py-2 rounded-md">
         <Link
-          to="/add-brand"
+          to="/admin/add-brand"
           className=" bg-green-600 px-2 mr-1 py-1 uppercase rounded-md text-gray-50 font-normal"
         >
           Add Brand

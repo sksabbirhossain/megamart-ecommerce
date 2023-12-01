@@ -65,11 +65,7 @@ export const ProductDetails = () => {
       <div className="grid grid-cols-1  md:grid-cols-12 gap-6  bg-white rounded-md">
         {/* product imgaes */}
         <div className="col-span-12 md:col-span-5 lg:col-span-4 p-3">
-          <img
-            src={`${process.env.REACT_APP_BASE_URL}/uploads/${picture}`}
-            alt="product"
-            className="rounded-md"
-          />
+          <img src={picture} alt="product" className="rounded-md" />
         </div>
 
         {/* product details */}

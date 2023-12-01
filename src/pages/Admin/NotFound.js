@@ -1,5 +1,5 @@
 import React from "react";
-import { setTitle } from "../utils/setTitle";
+import { setTitle } from "../../utils/setTitle";
 
 export const NotFound = () => {
   //set page tite

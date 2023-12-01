@@ -2,8 +2,8 @@ import React from "react";
 import { AiOutlineBug } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectAdminInfo } from "../../features/auth/authSelectors";
-import { isActive } from "../../features/sidebar/sidebarSlice";
+import { selectAdminInfo } from "../../../features/auth/authSelectors";
+import { isActive } from "../../../features/sidebar/sidebarSlice";
 
 export const Header = () => {
   const dispatch = useDispatch();

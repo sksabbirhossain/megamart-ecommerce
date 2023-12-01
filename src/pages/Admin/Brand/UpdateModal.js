@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Button } from "../../components/common/Button/Button";
-import { Form } from "../../components/common/Form/Form";
-import { FormInput } from "../../components/common/FormInput/FormInput";
-import { Textarea } from "../../components/common/FormInput/Textarea";
-import { Error } from "../../components/ui/Error";
+import { Button } from "../../../components/common/Button/Button";
+import { Form } from "../../../components/common/Form/Form";
+import { FormInput } from "../../../components/common/FormInput/FormInput";
+import { Textarea } from "../../../components/common/FormInput/Textarea";
+import { Error } from "../../../components/ui/Error";
 import {
   useGetBrandQuery,
   useUpdateBrandMutation,
-} from "../../features/brand/brandApi";
+} from "../../../features/brand/brandApi";
 
 export const UpdateModal = ({ closeModal, brandId }) => {
   const [name, setName] = useState("");

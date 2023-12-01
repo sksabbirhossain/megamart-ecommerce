@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../../components/common/Button/Button";
-import { Form } from "../../components/common/Form/Form";
-import { FormInput } from "../../components/common/FormInput/FormInput";
-import { Textarea } from "../../components/common/FormInput/Textarea";
-import { Heading } from "../../components/common/Heading/Heading";
-import { Error } from "../../components/ui/Error";
-import { useAddBrandMutation } from "../../features/brand/brandApi";
-import { setTitle } from "../../utils/setTitle";
+import { Button } from "../../../components/common/Button/Button";
+import { Form } from "../../../components/common/Form/Form";
+import { FormInput } from "../../../components/common/FormInput/FormInput";
+import { Textarea } from "../../../components/common/FormInput/Textarea";
+import { Heading } from "../../../components/common/Heading/Heading";
+import { Error } from "../../../components/ui/Error";
+import { useAddBrandMutation } from "../../../features/brand/brandApi";
+import { setTitle } from "../../../utils/setTitle";
 
 export const AddBrand = () => {
   const [name, setName] = useState("");
@@ -25,7 +25,7 @@ export const AddBrand = () => {
     setError("");
     if (!isLoading && isSuccess) {
       toast.success("Brand Added SuccessFull");
-      return navigate("/all-brands");
+      return navigate("/admin/all-brands");
     }
     if (resError?.error) {
       console.log(resError.error);
@@ -53,7 +53,7 @@ export const AddBrand = () => {
       <Heading title="Add Brand" />
       <div className="flex justify-end shadow-sm py-2 rounded-md">
         <Link
-          to="/all-brands"
+          to="/admin/all-brands"
           className=" bg-green-600 px-2 mr-1 py-1 uppercase rounded-md text-gray-50 font-normal"
         >
           All Brands
@@ -84,7 +84,11 @@ export const AddBrand = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-            <Button name={isLoading ? "loading.." : "Add"} className="w-full" />
+            <Button
+              name={isLoading ? "loading.." : "Add"}
+              className="w-full"
+              disabled={isLoading}
+            />
           </Form>
 
           {error !== "" && <Error error={error} />}

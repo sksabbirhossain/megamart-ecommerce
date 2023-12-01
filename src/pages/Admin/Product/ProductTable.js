@@ -1,37 +1,34 @@
 import React, { useState } from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import {
-  useDeleteCategoryMutation,
-  useUpdateSatusMutation,
-} from "../../features/category/categoryApi";
-import { CategoryModal } from "./CategoryModal";
+  useDeleteProductMutation,
+  useUpdateProductStatusMutation,
+} from "../../../features/product/productApi";
+import { ProductModal } from "./ProductModal";
 
-export const CategoriesTable = ({ categories }) => {
-  const [open, setOpen] = useState(false);
-  const [categoryId, setCategoryId] = useState(undefined);
-  const [updateStatus] = useUpdateSatusMutation();
-  const [deleteCategory] = useDeleteCategoryMutation();
+export const ProductTable = ({ products }) => {
+  const [openModal, setOpenModal] = useState(false);
+  const [productId, setProductId] = useState("");
 
-  //update Status
-  const updateStatusHandler = (id, data) => {
-    updateStatus({
-      id,
-      data: {
-        status: data,
-      },
-    });
+  const [updateProductStatus] = useUpdateProductStatusMutation();
+  const [deleteProduct] = useDeleteProductMutation();
+
+  //update product status
+  const updateStatusHandler = (productId, status) => {
+    updateProductStatus({ productId, data: { status: !status } });
   };
 
-  //open modal
-  const openModal = (categoryId, open) => {
-    setCategoryId(categoryId);
-    setOpen(open);
+  //delete product
+  const deleteProductHandler = (productId) => {
+    deleteProduct(productId);
   };
 
-  //delete category
-  const deleteHandler = (id) => {
-    deleteCategory(id);
+  //update handler
+  const openModalHandler = (productId, open) => {
+    setOpenModal(open);
+    setProductId(productId);
   };
+
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -39,10 +36,16 @@ export const CategoriesTable = ({ categories }) => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-100">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Category Picture
+                Picture
               </th>
               <th scope="col" className="px-6 py-3">
-                Category name
+                name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                price
+              </th>
+              <th scope="col" className="px-6 py-3">
+                stock
               </th>
               <th scope="col" className="px-6 py-3">
                 Status
@@ -53,8 +56,9 @@ export const CategoriesTable = ({ categories }) => {
             </tr>
           </thead>
           <tbody>
-            {categories?.map((category) => {
-              const { _id, name, picture, status } = category;
+            {products?.map((product) => {
+              const { _id, name, picture, price, stock, status } =
+                product || {};
               return (
                 <tr className="bg-white border-b" key={_id}>
                   <th
@@ -62,15 +66,17 @@ export const CategoriesTable = ({ categories }) => {
                     className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap"
                   >
                     <img
-                      src={`${process.env.REACT_APP_BASE_URL}/uploads/${picture}`}
-                      alt="category"
+                      src={picture}
+                      alt="brand"
                       className="w-11 h-11 rounded-full ring-2 ring-green-700 p-1"
                     />
                   </th>
-                  <td className="px-6 py-3">{name}</td>
+                  <td className="px-6 py-3 capitalize">{name}</td>
+                  <td className="px-6 py-3 capitalize">${price}</td>
+                  <td className="px-6 py-3 capitalize">{stock}</td>
                   <td
                     className="px-6 py-3 cursor-pointer"
-                    onClick={() => updateStatusHandler(_id, !status)}
+                    onClick={() => updateStatusHandler(_id, status)}
                   >
                     {status ? (
                       <span className="text-white font-semibold px-3 py-1 rounded-md bg-green-700">
@@ -85,13 +91,13 @@ export const CategoriesTable = ({ categories }) => {
                   <td className="px-6 py-3 sm:space-x-2 space-x-1">
                     <button
                       className="text-[16px] text-white bg-green-700 p-1 rounded-md"
-                      onClick={() => openModal(_id, true)}
+                      onClick={() => openModalHandler(_id, true)}
                     >
                       <FaPencilAlt />
                     </button>
                     <button
                       className="text-[16px] text-white bg-red-700 p-1 rounded-md"
-                      onClick={() => deleteHandler(_id)}
+                      onClick={() => deleteProductHandler(_id)}
                     >
                       <FaTrashAlt />
                     </button>
@@ -102,7 +108,9 @@ export const CategoriesTable = ({ categories }) => {
           </tbody>
         </table>
       </div>
-      {open && <CategoryModal closeModal={setOpen} categoryId={categoryId} />}
+      {openModal && (
+        <ProductModal closeModal={setOpenModal} productId={productId} />
+      )}
     </>
   );
 };

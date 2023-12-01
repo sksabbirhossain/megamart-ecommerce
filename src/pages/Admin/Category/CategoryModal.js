@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Button } from "../../components/common/Button/Button";
-import { Form } from "../../components/common/Form/Form";
-import { FormInput } from "../../components/common/FormInput/FormInput";
-import { SelectBox } from "../../components/common/FormInput/SelectBox";
-import { Error } from "../../components/ui/Error";
-import { useGetAllBrandsQuery } from "../../features/brand/brandApi";
+import { Button } from "../../../components/common/Button/Button";
+import { Form } from "../../../components/common/Form/Form";
+import { FormInput } from "../../../components/common/FormInput/FormInput";
+import { SelectBox } from "../../../components/common/FormInput/SelectBox";
+import { Error } from "../../../components/ui/Error";
+import { useGetAllBrandsQuery } from "../../../features/brand/brandApi";
 import {
   useGetCategoryQuery,
   useUpdateCategoryMutation,
-} from "../../features/category/categoryApi";
+} from "../../../features/category/categoryApi";
 
 export const CategoryModal = ({ closeModal, categoryId }) => {
   const [name, setName] = useState("");

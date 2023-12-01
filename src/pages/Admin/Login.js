@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiOutlineBug } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../components/common/Button/Button";
-import { Form } from "../components/common/Form/Form";
-import { FormInput } from "../components/common/FormInput/FormInput";
-import { Error } from "../components/ui/Error";
-import { useAdminLoginMutation } from "../features/auth/authApi";
-import { setTitle } from "../utils/setTitle";
+import { Button } from "../../components/common/Button/Button";
+import { Form } from "../../components/common/Form/Form";
+import { FormInput } from "../../components/common/FormInput/FormInput";
+import { Error } from "../../components/ui/Error";
+import { useAdminLoginMutation } from "../../features/auth/authApi";
+import { setTitle } from "../../utils/setTitle";
 
 export const Login = () => {
   const [email, setEmail] = useState("");

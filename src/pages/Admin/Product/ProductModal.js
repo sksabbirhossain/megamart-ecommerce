@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Button } from "../../components/common/Button/Button";
-import { Form } from "../../components/common/Form/Form";
-import { FormInput } from "../../components/common/FormInput/FormInput";
-import { SelectBox } from "../../components/common/FormInput/SelectBox";
-import { Textarea } from "../../components/common/FormInput/Textarea";
-import { Error } from "../../components/ui/Error";
-import { useGetAllBrandsQuery } from "../../features/brand/brandApi";
-import { useGetCategoriesByBrandQuery } from "../../features/category/categoryApi";
+import { Button } from "../../../components/common/Button/Button";
+import { Form } from "../../../components/common/Form/Form";
+import { FormInput } from "../../../components/common/FormInput/FormInput";
+import { SelectBox } from "../../../components/common/FormInput/SelectBox";
+import { Textarea } from "../../../components/common/FormInput/Textarea";
+import { Error } from "../../../components/ui/Error";
+import { useGetAllBrandsQuery } from "../../../features/brand/brandApi";
+import { useGetCategoriesByBrandQuery } from "../../../features/category/categoryApi";
 import {
   useGetProductQuery,
   useUpdateProductMutation,
-} from "../../features/product/productApi";
+} from "../../../features/product/productApi";
 
 export const ProductModal = ({ closeModal, productId }) => {
   const [name, setName] = useState("");
