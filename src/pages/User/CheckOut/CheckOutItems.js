@@ -24,7 +24,7 @@ export const CheckOutItems = ({ item }) => {
     <tr className="bg-white border-b  hover:bg-gray-50">
       <th scope="row" className="px-6 py-4 ">
         <img
-          src={`${process.env.REACT_APP_BASE_URL}/uploads/${picture}`}
+          src={picture}
           alt="product"
           className="w-20 h-20 object-cover rounded-md"
         />
