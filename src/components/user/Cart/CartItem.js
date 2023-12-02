@@ -15,7 +15,7 @@ export const CartItem = ({ item }) => {
     <div className="flex shadow-md p-1 mb-1">
       <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
         <img
-          src={`${process.env.REACT_APP_BASE_URL}/uploads/${picture}`}
+          src={picture}
           alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
           className="h-full w-full object-cover object-center"
         />
