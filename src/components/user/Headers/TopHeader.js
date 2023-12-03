@@ -15,7 +15,7 @@ export const TopHeader = () => {
             <AiOutlinePhone /> <span className="ps-1">+880 1982658413</span>
           </p>
           <p className="flex items-center">
-            <AiOutlineCar /> <span className="ps-1">Rrack Your Order</span>
+            <AiOutlineCar /> <span className="ps-1">Track Your Order</span>
           </p>
           <p className="flex items-center">
             <AiOutlineRadarChart /> <span className="ps-1">All Offer</span>
